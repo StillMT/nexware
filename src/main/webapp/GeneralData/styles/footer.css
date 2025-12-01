@@ -1,0 +1,120 @@
+footer {
+    background-image: url("/GeneralData/imgs/footer-background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5em;
+
+    padding-top: 8em;
+}
+
+.main-footer-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-evenly;
+    color: white;
+
+    width: 100%;
+    max-width: 100em;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.footer-column.logo {
+    justify-content: center;
+    align-items: center;
+}
+#footer-logo {
+    width: 15em;
+}
+
+.footer-column .title {
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 0.5em;
+}
+
+.footer-column .title:hover, #newsletter-span:hover {
+    text-decoration: none;
+    cursor: unset;
+}
+
+.footer-column span {
+    font-size: 0.9em;
+    margin-bottom: 0.2em;
+    cursor: pointer;
+    overflow-wrap: break-word;
+
+    width: 100%;
+    max-width: 20em;
+
+    text-shadow: 2px 4px 4px rgb(0, 0, 0);
+}
+
+.footer-column span:hover {
+    text-decoration: underline;
+}
+
+#newsletter-span {
+    font-size: 0.7em;
+    margin-bottom: 0;
+    padding-left: 0.5em;
+}
+
+.footer-column form {
+    padding: 0.4em 0.65em;
+    background-color: white;
+    border-radius: 25px;
+
+    display: flex;
+    align-items: center;
+    gap: 0.2em;
+}
+
+.footer-column form input {
+    font-family: "Poppins", sans-serif;
+    outline: none;
+    border: none;
+}
+
+.footer-column form input[type="submit"] {
+    padding: 0.2em 0.8em;
+
+    background-color: #3eb6ee;
+    color: white;
+    border-radius: 20px;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.footer-column form input[type="submit"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 2);
+}
+
+.copyright-footer {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    font-size: 0.8em;
+    padding: 0.5em;
+
+    border-top: #3eb6ee 2px solid;
+    background-color: #0b0f2c;
+}

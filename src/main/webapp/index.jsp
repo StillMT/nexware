@@ -1,13 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <title>JSP - Hello World</title>
-</head>
-<body>
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
-</body>
+    <% final String pageTitle = "Home"; %>
+    <%@ include file="/WEB-INF/includes/head.jspf" %>
+
+    <body>
+        <%@ include file="/WEB-INF/includes/header.jspf" %>
+
+        <main class="main-cont">
+
+        </main>
+
+        <%@ include file="/WEB-INF/includes/footer.jspf" %>
+    </body>
 </html>

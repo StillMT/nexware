@@ -1,0 +1,35 @@
+<header>
+    <div class="top-bar-wrapper">
+        <div class="top-bar">
+            <a href="#"><img src="${pageContext.request.contextPath}/GeneralData/imgs/logo.png" id="banner-image" /></a>
+
+            <div class="user-actions">
+                <a><span class="user-action">
+                    <i class="fa-solid fa-user"></i>
+                </span></a>
+                <a><span class="user-action">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </span></a>
+            </div>
+        </div>
+
+        <hr class="header-line" />
+    </div>
+
+    <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass" id="search-icon" ></i>
+        <form class="search-form" action="#">
+            <input type="search" class="search-input" name="q" placeholder="Cerca software..." autocomplete="off" />
+            <input type="submit" class="search-btn" value="Cerca" />
+        </form>
+    </div>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">CATALOGO</a></li>
+            <li><a href="#">CHI SIAMO</a></li>
+            <li><a href="#">SUPPORTO</a></li>
+        </ul>
+    </nav>
+</header>
