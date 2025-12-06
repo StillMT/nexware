@@ -26,7 +26,7 @@
         <div class="footer-column">
             <span class="title">Newsletter</span>
             <span id="newsletter-span">Iscriviti alla nostra newsletter per non perderti nessuna novit&agrave;!</span>
-            <form action="#">
+            <form action="${pageContext.request.contextPath}/newsletter/" method="post">
                 <input type="email" name="newsletter_email" placeholder="Inserisci la tua mail" />
                 <input type="submit" value="Iscriviti" />
             </form>

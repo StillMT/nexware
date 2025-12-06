@@ -44,8 +44,7 @@ public class CompanyDAO {
         return checkAvailability(companyName, sql);
     }
 
-    // Metodi privati
-    private static boolean checkAvailability(String str, String sql) {
+    public static boolean checkAvailability(String str, String sql) {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
