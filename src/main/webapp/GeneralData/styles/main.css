@@ -16,10 +16,6 @@ body {
     align-items: center;
     justify-content: center;
     background-color: white;
-
-    padding-top: 4em;
-
-    height: 200vh; /* DA TOGLIERE */
 }
 
 img {

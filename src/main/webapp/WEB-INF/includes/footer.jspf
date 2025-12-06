@@ -1,7 +1,7 @@
 <footer>
     <div class="main-footer-wrapper">
         <div class="footer-column logo">
-            <img src="${pageContext.request.contextPath}/GeneralData/imgs/footer-logo.png" id="footer-logo" />
+            <a href="#"><img src="${pageContext.request.contextPath}/GeneralData/imgs/footer-logo.png" id="footer-logo" /></a>
         </div>
 
         <div class="footer-column">
@@ -27,7 +27,7 @@
             <span class="title">Newsletter</span>
             <span id="newsletter-span">Iscriviti alla nostra newsletter per non perderti nessuna novit&agrave;!</span>
             <form action="#">
-                <input type="email" name="email" placeholder="Inserisci la tua mail" />
+                <input type="email" name="newsletter_email" placeholder="Inserisci la tua mail" />
                 <input type="submit" value="Iscriviti" />
             </form>
         </div>

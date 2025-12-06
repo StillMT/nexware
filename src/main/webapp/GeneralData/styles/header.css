@@ -5,6 +5,7 @@ header {
     background-image: radial-gradient(ellipse, #3eb6ee, #1c3a70);
 
     padding-top: 7.41em;
+    margin-bottom: 3em;
 }
 
 .top-bar-wrapper {
@@ -16,6 +17,7 @@ header {
 
     top: 0;
     position: fixed;
+    z-index: 1000;
 }
 
 .top-bar {
@@ -38,6 +40,10 @@ header {
     gap: 1em;
 }
 
+.user-actions a {
+    text-decoration: none;
+}
+
 .user-action {
     display: flex;
     justify-content: center;
@@ -47,7 +53,7 @@ header {
     font-size: 1.3em;
     color: #3eb6ee;
 
-    transition: 0.3s ease;
+    transition: 0.1s ease;
 }
 
 .user-action:hover {
@@ -164,7 +170,7 @@ header {
     transform: translateY(2px);
 }
 
-@media (min-width: 1921px) {
+@media (min-width: 120em) {
     .top-bar {
         width: 100%;
         padding: 1.5em 15em;

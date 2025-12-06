@@ -9,7 +9,8 @@ footer {
     flex-direction: column;
     gap: 1.5em;
 
-    padding-top: 8em;
+    padding-top: 10em;
+    margin-top: 3em;
 }
 
 .main-footer-wrapper {
@@ -101,7 +102,7 @@ footer {
 
 .footer-column form input[type="submit"]:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
 }
 
 .copyright-footer {
