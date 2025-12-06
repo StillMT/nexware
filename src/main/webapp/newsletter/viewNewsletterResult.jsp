@@ -5,11 +5,19 @@
     String message = "";
 
     if (status != null)
-        message = switch (status) {
-            case "OK" -> "E-mail aggiunta correttamente alla newsletter";
-            case "EX" -> "E-mail già  iscritta alla newsletter";
-            default -> "Operazione non riuscita";
-        };
+        switch (status) {
+            case "OK":
+                message = "E-mail aggiunta correttamente alla newsletter";
+                break;
+
+            case "EX":
+                message = "E-mail già  iscritta alla newsletter";
+                break;
+
+            default:
+                message = "Operazione non riuscita";
+                break;
+        }
 %>
 
 <!DOCTYPE html>
