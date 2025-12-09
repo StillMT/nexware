@@ -1,13 +1,21 @@
+<%@ page import="it.unisa.nexware.application.beans.CompanyBean" %>
+<%
+    HttpSession s = request.getSession();
+    CompanyBean loggedCompany = (CompanyBean) s.getAttribute("company");
+%>
+
 <header>
     <div class="top-bar-wrapper">
         <div class="top-bar">
-            <a href="#"><img src="${pageContext.request.contextPath}/GeneralData/imgs/logo.png" id="banner-image" /></a>
+            <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/GeneralData/imgs/logo.png" id="banner-image" /></a>
 
             <div class="user-actions">
-                <a href="${pageContext.request.contextPath}/myNexware/login"><span class="user-action">
+                <a href="${pageContext.request.contextPath}/myNexware"><span class="user-action">
                     <i class="fa-solid fa-user"></i>
+                    <span class="welcome-user">Bentornato</span>
+                    <span class="username"><%= loggedCompany != null ? loggedCompany.getCompanyName() : "" %></span>
                 </span></a>
-                <a><span class="user-action">
+                <a href="${pageContext.request.contextPath}/myNexware/cart"><span class="user-action">
                     <i class="fa-solid fa-cart-shopping"></i>
                 </span></a>
             </div>
@@ -26,10 +34,10 @@
 
     <nav class="main-nav">
         <ul>
-            <li><a href="/">HOME</a></li>
-            <li><a href="/catalogue">CATALOGO</a></li>
-            <li><a href="/aboutus">CHI SIAMO</a></li>
-            <li><a href="/contactus">SUPPORTO</a></li>
+            <li><a href="${pageContext.request.contextPath}/">HOME</a></li>
+            <li><a href="${pageContext.request.contextPath}/catalogue">CATALOGO</a></li>
+            <li><a href="${pageContext.request.contextPath}/aboutus">CHI SIAMO</a></li>
+            <li><a href="${pageContext.request.contextPath}/contactus">SUPPORTO</a></li>
         </ul>
     </nav>
 </header>

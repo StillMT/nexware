@@ -1,7 +1,7 @@
 <footer>
     <div class="main-footer-wrapper">
         <div class="footer-column logo">
-            <a href="#"><img src="${pageContext.request.contextPath}/GeneralData/imgs/footer-logo.png" id="footer-logo" /></a>
+            <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/GeneralData/imgs/footer-logo.png" id="footer-logo" /></a>
         </div>
 
         <div class="footer-column">

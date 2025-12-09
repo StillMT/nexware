@@ -131,6 +131,7 @@ public final class DriverManagerConnectionPool {
                     }
 
                     pc.connection.close();
+                    freeDbConnections.remove(pc);
                 } catch (SQLException e) {
                     logSqlError(e);
                 }

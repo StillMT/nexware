@@ -232,7 +232,7 @@ registerForm.addEventListener("submit", (e) => {
         e.preventDefault();
         showPopup(
             "Attenzione",
-            "Alcuni campi non sono corretti o risultano già registrati. Controlla gli errori in rosso."
+            "Alcuni campi sono invalidi o risultano già registrati. Controlla gli errori in rosso."
         );
     }
 });
@@ -251,9 +251,57 @@ loginForm.addEventListener("submit", (e) => {
 
     if (!isUserValid || !isPassValid) {
         e.preventDefault();
-        showPopup(
-            "Attenzione",
-            "Le credenziali risultano essere invalide, controllale e riprova."
-        );
+        showPopupInvalidField();
     }
 });
+
+function showPopupInvalidField() {
+    showPopup(
+        "Attenzione",
+        "Le credenziali risultano essere invalide, controllale e riprova."
+    );
+}
+
+function showPopupErrDB() {
+    showPopup(
+        "Attenzione",
+        "Stiamo avendo problemi nel contattare il database, per favore riprova più tardi."
+    );
+}
+
+switch (error) {
+    case "NOT_VALID":
+        showPopupInvalidField();
+        break;
+
+    case "ERR_DB":
+        showPopupErrDB();
+        break;
+
+    case "INC_U_P":
+        showPopup(
+            "Attenzione",
+            "L'username o la password non sono corretti."
+        );
+        break;
+
+    case "NOT_VALID_R":
+        viewRegister();
+        showPopup(
+            "Attenzione",
+            "Uno o più campi sono invalidi, controllali e riprova."
+        );
+        break;
+
+    case "ERR_DB_R":
+        viewRegister();
+        showPopupErrDB();
+        break;
+
+    case "NO_AUTH":
+        showPopup(
+            "Attenzione",
+            "Devi prima loggarti prima di utilizzare quella risorsa."
+        );
+        break;
+}

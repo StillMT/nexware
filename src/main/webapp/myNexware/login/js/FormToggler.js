@@ -9,10 +9,12 @@ loginToggler.addEventListener("click", () => {
     registerFormWrapper.style.display = "";
 });
 
-registerToggler.addEventListener("click", () => {
+registerToggler.addEventListener("click", () => viewRegister());
+
+function viewRegister() {
     loginFormWrapper.style.display = "";
     registerFormWrapper.style.display = "none";
-});
+}
 
 const addInfoCheckbox = document.getElementById("add_info");
 const addInfoInputs = document.querySelectorAll(".add_info_field");

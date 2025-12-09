@@ -9,10 +9,10 @@
         <%@ include file="/WEB-INF/includes/header.jspf" %>
 
         <main class="main-cont">
-            <div class="form-wrapper" id="login-form" style="display: none">
+            <div class="form-wrapper" id="login-form">
                 <span class="form-title">Login</span>
 
-                <form action="${pageContext.request.contextPath}/myNexware/login" method="post" class="login-form">
+                <form action="${pageContext.request.contextPath}/myNexware/loginEndpoint" method="post" class="login-form">
                     <div class="form-row">
                         <label for="username_login">Username</label>
                         <span>
@@ -42,10 +42,10 @@
                 </form>
             </div>
 
-            <div class="form-wrapper" id="register-form" >
+            <div class="form-wrapper" id="register-form" style="display: none">
                 <span class="form-title">Registrazione</span>
 
-                <form action="${pageContext.request.contextPath}/myNexware/register" method="post" class="login-form">
+                <form action="${pageContext.request.contextPath}/myNexware/registerEndpoint" method="post" class="login-form">
                     <div class="form-row">
                         <label for="username_register">Username</label>
                         <span>
@@ -75,7 +75,7 @@
                         <label for="rep_password_register">Ripeti password</label>
                         <span>
                             <label for="rep_password_register"><i class="fa-solid fa-key"></i></label>
-                            <input type="password" name="password" id="rep_password_register" placeholder="Ripeti password" />
+                            <input type="password" name="rep-password" id="rep_password_register" placeholder="Ripeti password" />
                         </span>
 
                         <div class="form-error" id="repPasswordError">
@@ -151,7 +151,7 @@
 
                     <div class="form-row">
                         <div>
-                            <input type="checkbox" id="add_info" name="add_info" />
+                            <input type="checkbox" id="add_info" name="add_info" value="true" />
                             <label for="add_info">Fornisci informazioni facoltative per l'uso completo dell'e-commerce.</label>
                         </div>
                     </div>
@@ -165,6 +165,12 @@
             <%@ include file="/WEB-INF/includes/popup.jspf" %>
 
         </main>
+
+        <script>
+            <% String e = request.getParameter("e"); %>
+
+            const error = "<%= e != null ? e : "" %>";
+        </script>
 
         <script src="js/PasswordVisibilityToggler.js"></script>
         <script src="js/FormToggler.js"></script>

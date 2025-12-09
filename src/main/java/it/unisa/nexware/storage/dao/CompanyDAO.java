@@ -1,11 +1,11 @@
 package it.unisa.nexware.storage.dao;
 
+import it.unisa.nexware.application.beans.CompanyBean;
+import it.unisa.nexware.application.enums.AccountStatus;
 import it.unisa.nexware.storage.utils.DriverManagerConnectionPool;
+import org.mindrot.jbcrypt.BCrypt;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.logging.Logger;
 
 public class CompanyDAO {
@@ -14,6 +14,80 @@ public class CompanyDAO {
     private static final Logger logger = Logger.getLogger(CompanyDAO.class.getName());
 
     // Metodi pubblici
+    public static CompanyBean doLoginCompany(String username, String password) {
+        final String sql = "SELECT * FROM company WHERE username = ?";
+        CompanyBean company = null;
+
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManagerConnectionPool.getConnection();
+            if (con == null)
+                return null;
+
+            ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                String pwd = rs.getString("password_hash");
+
+                if (BCrypt.checkpw(password, pwd)) {
+                    company = new CompanyBean(rs.getInt("id"), rs.getString("username"),
+                            rs.getString("email"), rs.getString("telephone"),
+                            rs.getString("vat"), rs.getString("company_name"),
+                            rs.getString("registered_office"),
+                            AccountStatus.fromDb(rs.getString("status")));
+                } else
+                    company = new CompanyBean();
+            }
+        } catch (SQLException e) {
+            DriverManagerConnectionPool.logSqlError(e, logger);
+        } finally {
+            DriverManagerConnectionPool.closeSqlParams(con, ps, rs);
+        }
+
+        return company;
+    }
+
+    public static int doRegisterCompany(CompanyBean company, String password) {
+        final String sql = "INSERT INTO company VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, NULL, ?)";
+        int result = 0;
+
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManagerConnectionPool.getConnection();
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setString(1, company.getUsername());
+            ps.setString(2, BCrypt.hashpw(password, BCrypt.gensalt()));
+            ps.setString(3, company.getEmail());
+            ps.setString(4, company.getTelephone());
+            ps.setString(5, company.getVat());
+            ps.setString(6, company.getCompanyName());
+            ps.setString(7, company.getCompanyAddress());
+            ps.setString(8, company.getStatus().name());
+
+            if (ps.executeUpdate() == 1) {
+                rs = ps.getGeneratedKeys();
+
+                if (rs.next())
+                    result = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            DriverManagerConnectionPool.logSqlError(e, logger);
+        } finally {
+            DriverManagerConnectionPool.closeSqlParams(con, ps, rs);
+        }
+
+        return result;
+    }
+
     public static boolean doCheckUsernameAvailability(String username) {
         final String sql = "SELECT username FROM company WHERE username = ?";
 
