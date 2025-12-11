@@ -11,7 +11,7 @@
                 break;
 
             case "EX":
-                message = "E-mail già  iscritta alla newsletter";
+                message = "E-mail già iscritta alla newsletter";
                 break;
 
             default:
