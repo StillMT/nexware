@@ -1,6 +1,7 @@
 package it.unisa.nexware.storage.utils;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.logging.Level;
@@ -53,6 +54,8 @@ public final class DriverManagerConnectionPool {
         try {
             newConnection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             newConnection.setAutoCommit(true);
+
+            logConnectionStatuses("Creating new connection: " + newConnection);
         } catch (SQLException e) {
             logSqlError(e);
         }
@@ -64,8 +67,11 @@ public final class DriverManagerConnectionPool {
         while (!freeDbConnections.isEmpty()) {
             Connection c = freeDbConnections.removeFirst().connection;
             try {
-                if (!c.isClosed() && c.isValid(2))
+                if (!c.isClosed() && c.isValid(2)) {
+                    logConnectionStatuses("Taking from pool: " + c);
+
                     return c;
+                }
             } catch (SQLException e) {
                 logSqlError(e);
             }
@@ -77,6 +83,8 @@ public final class DriverManagerConnectionPool {
     public static synchronized void releaseConnection(Connection c) {
         try {
             if (c != null && !c.isClosed() && c.isValid(2)) {
+                logConnectionStatuses("Adding to pool: " + c);
+
                 freeDbConnections.add(new PooledConnection(c));
             }
         } catch (SQLException e) {
@@ -106,7 +114,7 @@ public final class DriverManagerConnectionPool {
 
     public static void shutdown() {
         scheduler.shutdown();
-
+        logConnectionStatuses("Shutting down detected, closing connections...");
         closeConnections(true);
     }
 
@@ -118,6 +126,10 @@ public final class DriverManagerConnectionPool {
         logSqlError(e, logger);
     }
 
+    private static void logConnectionStatuses(String message) {
+        System.out.println("[" + LocalDateTime.now() + "] " + message);
+    }
+
     private static void closeConnections(boolean all) {
         long now = System.currentTimeMillis();
 
@@ -125,7 +137,7 @@ public final class DriverManagerConnectionPool {
             if (all || now - pc.releaseTime > MAX_IDLE_TIME) {
                 try {
                     try {
-                        System.out.println("Chiusura di: " + pc.connection);
+                        logConnectionStatuses("Closing: " + pc.connection);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

@@ -39,7 +39,7 @@ public class CompanyDAO {
                             rs.getString("email"), rs.getString("telephone"),
                             rs.getString("vat"), rs.getString("company_name"),
                             rs.getString("registered_office"),
-                            AccountStatus.fromDb(rs.getString("status")));
+                            AccountStatus.valueOf(rs.getString("status")));
                 } else
                     company = new CompanyBean();
             }
@@ -53,7 +53,7 @@ public class CompanyDAO {
     }
 
     public static int doRegisterCompany(CompanyBean company, String password) {
-        final String sql = "INSERT INTO company VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, NULL, ?)";
+        final String sql = "INSERT INTO company VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, DEFAULT, ?)";
         int result = 0;
 
         Connection con = null;

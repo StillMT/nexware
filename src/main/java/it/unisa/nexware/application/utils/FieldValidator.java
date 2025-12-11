@@ -1,5 +1,7 @@
 package it.unisa.nexware.application.utils;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,8 +13,13 @@ public final class FieldValidator {
     private FieldValidator() {}
 
     // Metodi formatting
-    public static String formatEuroPrice(double price) {
+    public static String formatEuroPrice(BigDecimal price) {
         return String.format("€%,.2f", price);
+    }
+
+    public static String formatDateTime(LocalDateTime dt) {
+        return String.format("%02d", dt.getDayOfMonth()) + "/" + String.format("%02d", dt.getMonthValue()) +
+                "/" + dt.getYear() + " " + String.format("%02d", dt.getHour()) + ":" + String.format("%02d", dt.getMinute());
     }
 
     // Metodi validate
@@ -34,6 +41,10 @@ public final class FieldValidator {
 
     public static boolean phoneValidate(String phone) {
         return phone != null && TELEPHONE_PATTERN.matcher(phone).matches();
+    }
+
+    public static boolean dateValidate(String date) {
+        return date != null && DATE_PATTERN.matcher(date).matches();
     }
 
     public static boolean containsBadWord(String input) {
@@ -82,6 +93,8 @@ public final class FieldValidator {
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^(?=.{1,254}$)[a-zA-Z0-9](?!.*?[.]{2})[a-zA-Z0-9._%+-]{0,63}@[a-zA-Z0-9](?!.*--)[a-zA-Z0-9.-]{0,253}\\.[a-zA-Z]{2,}$");
     private static final Pattern TELEPHONE_PATTERN = Pattern.compile("^(?:\\+39|0039)?(?:3\\d{9}|0\\d{8,10})$");
     private static final Pattern VAT_PATTERN = Pattern.compile("^\\d{11}$");
+
+    private static final Pattern DATE_PATTERN = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
 
     private static final Set<String> BAD_WORDS = new HashSet<>(Arrays.asList(
             "ciao", "ciao2"
