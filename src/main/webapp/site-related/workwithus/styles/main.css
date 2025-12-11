@@ -1,0 +1,71 @@
+* {
+    box-sizing: border-box;
+}
+
+/* 2. CONTENITORE PRINCIPALE: Affianca i due elementi */
+.workwithus {
+    max-width: 1200px; /* Larghezza massima del contenuto */
+    margin-bottom: 50px;    /* Spazio sopra/sotto (40px) e Centra il blocco (auto) */
+    padding: 20px;
+
+}
+
+/* 3. DIMENSIONAMENTO DEL TESTO (Sinistra) */
+.innovazione {
+    width: 50%; /* Diamo il 60% dello spazio al blocco testo */
+    text-align: justify;
+}
+
+/* 4. DIMENSIONAMENTO DELL'IMMAGINE (Destra) */
+.image {
+    width: 50%; /* Diamo il 40% dello spazio al blocco immagine */
+}
+
+/* Importante: assicuriamo che l'immagine all'interno del suo div non sfori */
+.image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+.parte-innovazione
+{
+    display: flex;
+    align-items: flex-start;  /* Allinea gli elementi in alto (più pulito) */
+    gap: 40px;            /* Spazio tra il testo e l'immagine */
+    margin-bottom: 100px;
+}
+
+body {
+    /* La regola "sans-serif" è una famiglia generica di font senza grazie (moderni) */
+    font-family: Arial, sans-serif;
+}
+
+.missione {
+    display: flex;
+    align-items: flex-start;  /* Allinea gli elementi in alto (più pulito) */
+    gap: 40px;            /* Spazio tra il testo e l'immagine */
+    margin-bottom: 70px;
+}
+
+.text-missione{
+    width: 50%; /* Diamo il 60% dello spazio al blocco testo */
+
+}
+
+.parte-cresci{
+    width: 50%; /* Diamo il 60% dello spazio al blocco testo */
+    text-align: justify;
+}
+
+.cresci{
+    display: flex;
+    align-items: flex-start;  /* Allinea gli elementi in alto (più pulito) */
+    gap: 40px;            /* Spazio tra il testo e l'immagine */
+    margin-bottom: 100px;
+}
+
+.text-missione2{
+    text-align: justify;
+}

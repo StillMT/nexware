@@ -118,3 +118,8 @@ footer {
     border-top: #3eb6ee 2px solid;
     background-color: #0b0f2c;
 }
+
+.footer-column a {
+    text-decoration: none;
+    color: white;
+}
