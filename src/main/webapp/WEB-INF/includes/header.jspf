@@ -42,8 +42,8 @@
         <ul>
             <li><a href="${pageContext.request.contextPath}/">HOME</a></li>
             <li><a href="${pageContext.request.contextPath}/catalogue">CATALOGO</a></li>
-            <li><a href="${pageContext.request.contextPath}/aboutus">CHI SIAMO</a></li>
-            <li><a href="${pageContext.request.contextPath}/contactus">SUPPORTO</a></li>
+            <li><a href="${pageContext.request.contextPath}/site-related/aboutus">CHI SIAMO</a></li>
+            <li><a href="${pageContext.request.contextPath}/site-related/contactus">CONTATTACI</a></li>
         </ul>
     </nav>
 </header>

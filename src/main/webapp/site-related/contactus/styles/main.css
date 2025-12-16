@@ -1,0 +1,121 @@
+
+.contact-page {
+    max-width: 1200px;
+    margin: 3em auto;
+}
+
+.page-title {
+    text-align: center;
+    margin: 0;
+}
+
+.contact-layout {
+    display: flex;
+    gap: 3em;
+    align-items: flex-start;
+}
+
+.contact-container {
+    flex: 2;
+    background-color: white;
+    padding: 2.5em;
+    border-radius: 15px;
+}
+
+.contact-container h3 {
+    margin-bottom: 1.5em;
+}
+
+.row-inputs {
+    display: flex;
+    gap: 1.5em;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-bottom: 1.2em;
+}
+
+#name,#email,#object,#description {
+    font-family: "Poppins", sans-serif;
+    padding: 0.7em 1em;
+    border-radius: 10px;
+    outline: none;
+    font-size: 0.9em;
+    box-shadow: 0 0 0 3px rgba(111, 211, 231, 0.25);
+    border: 1.5px solid #7fd8ec;
+
+}
+
+textarea {
+    resize: none;
+}
+
+#contact-form input[type="submit"] {
+    margin-top: 1em;
+    padding: 0.7em 2em;
+    border-radius: 25px;
+    border: none;
+    background-color: #4db6e2;
+    color: white;
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+#contact-form input[type="submit"]:hover {
+    background-color: #0077b6;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 2);
+}
+
+.form-error {
+    display: none;
+    color: #e53935;
+    font-size: 0.75em;
+    margin-top: 4px;
+    margin-left: 6px;
+    min-height: 1em;
+}
+
+.required::after {
+    color: red;
+    font-weight: bold;
+    content: "*";
+}
+
+.form-error::before {
+    content: "• ";
+    font-weight: bold;
+}
+
+.contact-info-wrapper {
+    flex: 1;
+    background-color: white;
+    padding: 2em;
+    border-radius: 15px;
+}
+
+.contact-info-wrapper h3 {
+    margin-bottom: 1em;
+}
+
+.contact-info-wrapper p {
+    margin-bottom: 1em;
+    font-size: 0.9em;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 220px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 1em;
+}
+
+.input-error {
+    border-color: #e53935 !important;
+    box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.25);
+}
+

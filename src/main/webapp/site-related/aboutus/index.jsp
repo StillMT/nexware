@@ -17,7 +17,7 @@
                         <p>
                             Nexware è una piattaforma B2B specializzata nel facilitare la connessione tra aziende
                             sviluppatrici di software e imprese che ricercano soluzioni digitali professionali.
-                            Mettiamo adisposizione uno spazio moderno, affidabile e progettato per valorizzare
+                            Mettiamo a disposizione uno spazio moderno, affidabile e progettato per valorizzare
                             l’innovazione tecnologica.
                         </p>
                         <p>
@@ -65,5 +65,6 @@
         </main>
 
         <%@ include file="/WEB-INF/includes/footer.jspf" %>
+
     </body>
 </html>

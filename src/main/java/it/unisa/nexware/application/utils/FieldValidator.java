@@ -48,6 +48,9 @@ public final class FieldValidator {
     }
 
     public static boolean containsBadWord(String input) {
+        if (input == null)
+            return false;
+
         String normalized = input.toLowerCase()
                 .replace("3", "e")
                 .replace("0", "o")
@@ -59,6 +62,7 @@ public final class FieldValidator {
         for (String word : BAD_WORDS) {
             if (normalized.contains(word)) return true;
         }
+
         return false;
     }
 
@@ -87,12 +91,17 @@ public final class FieldValidator {
         return checkDigit == lastDigit;
     }
 
+    public static boolean companyNameValidate(String companyName) {
+        return companyName != null && COMPANY_NAME_PATTERN.matcher(companyName).matches();
+    }
+
     // Attributi
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_-]{3,16}$");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[!@#$%^&*(),.?\":{}|<>_])[a-zA-Z0-9!@#$%^&*(),.?\":{}|<>_]{8,20}$");
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^(?=.{1,254}$)[a-zA-Z0-9](?!.*?[.]{2})[a-zA-Z0-9._%+-]{0,63}@[a-zA-Z0-9](?!.*--)[a-zA-Z0-9.-]{0,253}\\.[a-zA-Z]{2,}$");
     private static final Pattern TELEPHONE_PATTERN = Pattern.compile("^(?:\\+39|0039)?(?:3\\d{9}|0\\d{8,10})$");
     private static final Pattern VAT_PATTERN = Pattern.compile("^\\d{11}$");
+    private static final Pattern COMPANY_NAME_PATTERN = Pattern.compile("^[A-Za-z0-9 .,'&()-]{1,255}$");
 
     private static final Pattern DATE_PATTERN = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
 
