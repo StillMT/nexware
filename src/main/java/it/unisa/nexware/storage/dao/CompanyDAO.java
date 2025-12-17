@@ -144,4 +144,42 @@ public class CompanyDAO {
 
         return !res;
     }
+
+    public static boolean doUpdateCompany(CompanyBean company) {
+
+        String sql = "UPDATE company SET email = ?, telephone = ?, vat = ?, company_name = ?, registered_office = ? WHERE id = ?";
+
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = DriverManagerConnectionPool.getConnection();
+            if (con == null) return false;
+
+            ps = con.prepareStatement(sql);
+
+
+            ps.setString(1, company.getEmail());
+            ps.setString(2, company.getTelephone());
+            ps.setString(3, company.getVat());
+            ps.setString(4, company.getCompanyName());
+            ps.setString(5, company.getCompanyAddress());
+
+
+            ps.setInt(6, company.getId());
+
+            int result = ps.executeUpdate();
+
+
+            return result > 0;
+
+        } catch (SQLException e) {
+            DriverManagerConnectionPool.logSqlError(e, logger);
+            return false;
+        } finally {
+            DriverManagerConnectionPool.closeSqlParams(con, ps, null);
+        }
+    }
 }
+
+

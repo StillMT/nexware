@@ -73,6 +73,33 @@ public class CompanyBean {
         this.id = id;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public void setVat(String vat) {
+        this.vat = vat;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public void setCompanyAddress(String companyAddress) {
+        this.companyAddress = companyAddress;
+    }
+
+    public void setStatus(AccountStatus status) {
+        this.status = status;
+    }
     // Attributi
     private int id;
     private String username;
