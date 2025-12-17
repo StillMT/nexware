@@ -8,7 +8,7 @@
             <span class="title">Azienda</span>
             <span>Chi siamo</span>
             <span>Contatti</span>
-            <span>Lavora con Noi</span>
+            <a href="${pageContext.request.contextPath}/site-related/workwithus"><span>Lavora con Noi</span></a>
             <span>Blog</span>
             <span>Area Stampa</span>
         </div>

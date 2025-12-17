@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/newsletter/")
+@WebServlet("/site-related/newsletter/")
 public class NewsletterServlet extends HttpServlet {
 
     @Override
