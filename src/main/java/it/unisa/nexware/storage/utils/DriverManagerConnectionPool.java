@@ -13,7 +13,7 @@ public final class DriverManagerConnectionPool {
     private DriverManagerConnectionPool() {}
 
     // Attributi
-    private static final String DB_URL = "jdbc:mysql://nexware.ddns.net:3306/nexware";
+    private static final String DB_URL = "jdbc:mysql://nexware.ddns.net:3306/nexware?serverTimezone=Europe/Rome";
     private static final String DB_USER = "nexware_admin";
     private static final String DB_PASSWORD = "tV9!mF5rJ0$uR2qZ_^e8Gx#Bn47pKs%wEh@Y3aVd*L6zHt!";
     private static final long MAX_IDLE_TIME = 120_000; // 2 minuti

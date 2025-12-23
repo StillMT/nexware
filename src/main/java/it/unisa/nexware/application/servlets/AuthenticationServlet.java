@@ -60,7 +60,7 @@ public class AuthenticationServlet extends HttpServlet {
                 String registeredOffice = request.getParameter("registered_office");
                 boolean additionalInfo = Boolean.parseBoolean(request.getParameter("add_info"));
 
-                if (!checkRegisterParams(username, password, repPassword, email, telephone, vat, additionalInfo)) {
+                if (!checkRegisterParams(username, password, repPassword, email, telephone, vat, companyName, additionalInfo)) {
                     response.sendRedirect("/myNexware/login?e=NOT_VALID_R");
                     return;
                 }
@@ -78,12 +78,10 @@ public class AuthenticationServlet extends HttpServlet {
         }
     }
 
-    private boolean checkRegisterParams(String username, String password, String repPassword,
-                                        String email, String telephone, String vat, boolean additionalInfo) {
+    private boolean checkRegisterParams(String username, String password, String repPassword, String email,
+                                        String telephone, String vat, String companyName, boolean additionalInfo) {
 
-        if (!FieldValidator.usernameValidate(username)
-                || !CompanyDAO.doCheckUsernameAvailability(username)
-                || FieldValidator.containsBadWord(username))
+        if (!FieldValidator.usernameValidate(username) || !CompanyDAO.doCheckUsernameAvailability(username))
             return false;
 
         if (!FieldValidator.passwordValidate(password))
@@ -96,6 +94,9 @@ public class AuthenticationServlet extends HttpServlet {
             return false;
 
         if (!FieldValidator.phoneValidate(telephone))
+            return false;
+
+        if (additionalInfo && !CompanyDAO.doCheckCompanyNameAvailability(companyName))
             return false;
 
         return !additionalInfo || FieldValidator.vatValidate(vat);

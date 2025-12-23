@@ -5,10 +5,7 @@ import it.unisa.nexware.application.beans.ProductBean;
 import it.unisa.nexware.application.enums.ProductStatus;
 import it.unisa.nexware.storage.utils.DriverManagerConnectionPool;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -20,10 +17,9 @@ public class ProductDAO {
 
     public static List<ProductBean> doGetProductsByCompany(CompanyBean company, String searchQuery,
                                                            String startDate, String endDate, String statusFilter) {
-        final String sql = "SELECT * FROM product WHERE id_company = ?" +
-                (searchQuery != null && !searchQuery.isBlank() ? " AND name LIKE ?" : "") +
-                " AND creation_date >= ? AND creation_date <= ?" +
-                (statusFilter.equals("ALL") ? "" : " AND state = ?");
+        final String sql = "SELECT * FROM product WHERE id_company = ? AND !(state = 'CANCELED' AND modifying_date <= DATE_SUB(NOW(), INTERVAL 1 DAY))" +
+                (searchQuery != null && !searchQuery.isBlank() ? " AND name LIKE ?" : "") + " AND creation_date >= ? AND creation_date <= ?" +
+                (statusFilter.equals("ALL") ? "" : " AND state = ?") + " LIMIT 100";
         List<ProductBean> products = new ArrayList<>();
 
         Connection con = null;
@@ -62,4 +58,122 @@ public class ProductDAO {
         return products;
     }
 
+    public static ProductBean doGetProductById(int id, boolean canceledStateTimeout) {
+        final String sql = "SELECT P.id, P.name, P.description, P.id_category, P.id_company, P.state, P.price, P.stock, " +
+                "C.company_name FROM product P INNER JOIN company C ON P.id_company = C.id WHERE P.id = ? AND " +
+                (canceledStateTimeout ? "!(P.state = 'CANCELED' AND P.modifying_date <= DATE_SUB(NOW(), INTERVAL 1 DAY))" : "P.state != 'CANCELED'");
+        ProductBean product = null;
+
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManagerConnectionPool.getConnection();
+            if (con == null)
+                return null;
+
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+            if (rs.next())
+                product = new ProductBean(rs.getInt("id"), rs.getString("name"),
+                        rs.getString("description"), rs.getInt("id_category"),
+                        rs.getInt("id_company"), ProductStatus.valueOf(rs.getString("state")),
+                        rs.getBigDecimal("price"), rs.getInt("stock"), rs.getString("company_name"));
+            else
+                product = new ProductBean();
+        } catch (SQLException e) {
+            DriverManagerConnectionPool.logSqlError(e, logger);
+        } finally {
+            DriverManagerConnectionPool.closeSqlParams(con, ps, rs);
+        }
+
+        return product;
+    }
+
+    public static int doSaveProduct(ProductBean product) {
+        final String sql = "INSERT INTO product VALUES (NULL, ?, ?, ?, ?, DEFAULT, DEFAULT, ?, ?, ?)";
+        int result = 0;
+
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManagerConnectionPool.getConnection();
+            if (con == null)
+                return 0;
+
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setString(1, product.getName());
+            ps.setString(2, product.getDescription());
+            ps.setInt(3, product.getIdCategory());
+            ps.setInt(4, product.getIdCompany());
+            ps.setString(5, product.getStatus().name());
+            ps.setBigDecimal(6, product.getPrice());
+            ps.setInt(7, product.getStock());
+
+            if (ps.executeUpdate() == 1) {
+                rs = ps.getGeneratedKeys();
+
+                if (rs.next())
+                    result = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            DriverManagerConnectionPool.logSqlError(e, logger);
+        }  finally {
+            DriverManagerConnectionPool.closeSqlParams(con, ps, rs);
+        }
+
+        return result;
+    }
+
+    public static boolean doEditProduct(ProductBean product) {
+        final String sql = "UPDATE product SET name = ?, description = ?, id_category = ?, modifying_date = NOW()," +
+                "state = ?, price = ?, stock = ? WHERE id = ?";
+        boolean result = false;
+
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = DriverManagerConnectionPool.getConnection();
+            if (con == null)
+                return false;
+
+            con.setAutoCommit(false);
+            ps = con.prepareStatement(sql);
+
+            ps.setString(1, product.getName());
+            ps.setString(2, product.getDescription());
+            ps.setInt(3, product.getIdCategory());
+            ps.setString(4, product.getStatus().name());
+            ps.setBigDecimal(5, product.getPrice());
+            ps.setInt(6, product.getStock());
+            ps.setInt(7, product.getId());
+
+            if (ps.executeUpdate() == 1) {
+                con.commit();
+                result = true;
+            } else
+                con.rollback();
+
+            con.setAutoCommit(true);
+        } catch (SQLException e) {
+            DriverManagerConnectionPool.logSqlError(e, logger);
+        }  finally {
+            DriverManagerConnectionPool.closeSqlParams(con, ps);
+        }
+
+        return result;
+    }
+
+    public static boolean doCheckProductNameAvailability(String productName) {
+        final String sql = "SELECT id FROM product WHERE name = ?";
+
+        return CompanyDAO.checkAvailability(productName, sql);
+    }
 }
