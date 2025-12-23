@@ -1,6 +1,7 @@
 package it.unisa.nexware.application.utils;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -20,6 +21,10 @@ public final class FieldValidator {
     public static String formatDateTime(LocalDateTime dt) {
         return String.format("%02d", dt.getDayOfMonth()) + "/" + String.format("%02d", dt.getMonthValue()) +
                 "/" + dt.getYear() + " " + String.format("%02d", dt.getHour()) + ":" + String.format("%02d", dt.getMinute());
+    }
+
+    public static String formatDate(LocalDate dt) {
+        return String.format("%02d", dt.getDayOfMonth()) + "/" + String.format("%02d", dt.getMonthValue()) + "/" + dt.getYear();
     }
 
     // Metodi validate

@@ -66,6 +66,13 @@ public class ProductBean {
         return stock;
     }
 
+    public void setId(int id) { this.id = id; }
+    public void setName(String name) { this.name = name; }
+    public void setDescription(String description) { this.description = description; }
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
     // Attributi
     private int id;
     private String name;
