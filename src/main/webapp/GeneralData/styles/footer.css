@@ -29,6 +29,8 @@ footer {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+
+    gap: 0.2em;
 }
 
 .footer-column.logo {
@@ -52,7 +54,6 @@ footer {
 
 .footer-column span {
     font-size: 0.9em;
-    margin-bottom: 0.2em;
     cursor: pointer;
     overflow-wrap: break-word;
 

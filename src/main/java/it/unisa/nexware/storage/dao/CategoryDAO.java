@@ -43,6 +43,17 @@ public class CategoryDAO {
         return categories;
     }
 
+    public static String doGetCategoryById(int id) {
+        if (categories.isEmpty())
+            doGetCatList();
+
+        for (CategoryBean c : categories)
+            if (c.getId() == id)
+                return c.getName();
+
+        return "";
+    }
+
     // Attributi
     private static final Logger logger = Logger.getLogger(CategoryDAO.class.getName());
     private static final List<CategoryBean> categories = new ArrayList<>();

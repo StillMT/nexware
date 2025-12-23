@@ -2,6 +2,7 @@ package it.unisa.nexware.application.servlets;
 
 import it.unisa.nexware.application.utils.FieldValidator;
 import it.unisa.nexware.storage.dao.CompanyDAO;
+import it.unisa.nexware.storage.dao.ProductDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,17 +17,17 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-@WebServlet(urlPatterns = {"/check-username", "/check-email", "/check-phone", "/get-vat-details", "/check-company_name"})
+@WebServlet(urlPatterns = {"/check-username", "/check-email", "/check-phone", "/get-vat-details", "/check-company_name",
+        "/myNexware/products/check-product-name"})
 public class AvailabilityCheckerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String servletPath = request.getServletPath();
         JSONObject result = new JSONObject();
         result.put("result", false);
 
-        switch (servletPath) {
+        switch (request.getServletPath()) {
             case "/get-vat-details":
                 final String EU_REST = "https://ec.europa.eu/taxation_customs/vies/rest-api/ms/IT/vat/";
 
@@ -71,13 +72,16 @@ public class AvailabilityCheckerServlet extends HttpServlet {
 
             case "/check-company_name":
                 String companyName = request.getParameter("companyName");
-                if (companyName != null && !companyName.isBlank())
-                    result.put("result", CompanyDAO.doCheckCompanyNameAvailability(companyName));
+                if (companyName != null)
+                    if (companyName.isBlank())
+                        result.put("result", true);
+                    else
+                        result.put("result", CompanyDAO.doCheckCompanyNameAvailability(companyName));
                 break;
 
             case "/check-username":
                 String username = request.getParameter("username");
-                if (FieldValidator.usernameValidate(username) && !FieldValidator.containsBadWord(username))
+                if (FieldValidator.usernameValidate(username))
                     result.put("result", CompanyDAO.doCheckUsernameAvailability(username));
                 break;
 
@@ -91,6 +95,12 @@ public class AvailabilityCheckerServlet extends HttpServlet {
                 String phone = request.getParameter("phone");
                 if (FieldValidator.phoneValidate(phone))
                     result.put("result", CompanyDAO.doCheckPhoneAvailability(phone));
+                break;
+
+            case "/myNexware/products/check-product-name":
+                String pName = request.getParameter("product-name");
+                if (FieldValidator.productNameValidate(pName))
+                    result.put("result", ProductDAO.doCheckProductNameAvailability(pName));
                 break;
         }
 

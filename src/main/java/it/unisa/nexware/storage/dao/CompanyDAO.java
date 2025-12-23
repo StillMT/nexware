@@ -15,8 +15,8 @@ public class CompanyDAO {
 
     // Metodi pubblici
     public static CompanyBean doLoginCompany(String username, String password) {
-        final String sql = "SELECT * FROM company WHERE username = ?";
-        CompanyBean company = null;
+        final String sql = "SELECT * FROM company WHERE username = ? AND status != 'BANNED'";
+        CompanyBean company = new CompanyBean();
 
         Connection con = null;
         PreparedStatement ps = null;
@@ -40,8 +40,7 @@ public class CompanyDAO {
                             rs.getString("vat"), rs.getString("company_name"),
                             rs.getString("registered_office"),
                             AccountStatus.valueOf(rs.getString("status")));
-                } else
-                    company = new CompanyBean();
+                }
             }
         } catch (SQLException e) {
             DriverManagerConnectionPool.logSqlError(e, logger);

@@ -28,12 +28,23 @@ public final class FieldValidator {
     }
 
     // Metodi validate
+    public static int idValidate(String id) {
+        int pId;
+
+        try {
+            pId = Integer.parseInt(id);
+        } catch (NumberFormatException | NullPointerException _) { pId = 0; }
+
+        return pId;
+    }
+
+    // Company
     public static boolean repPswValidate(String psw, String repPsw) {
         return repPsw.equals(psw);
     }
 
     public static boolean usernameValidate(String username) {
-        return username != null && USERNAME_PATTERN.matcher(username).matches();
+        return username != null && USERNAME_PATTERN.matcher(username).matches() && !containsBadWord(username);
     }
 
     public static boolean passwordValidate(String password) {
@@ -64,9 +75,9 @@ public final class FieldValidator {
                 .replace("$", "s")
                 .replace("@", "a");
 
-        for (String word : BAD_WORDS) {
-            if (normalized.contains(word)) return true;
-        }
+        for (String word : BAD_WORDS)
+            if (normalized.contains(word))
+                return true;
 
         return false;
     }
@@ -100,7 +111,37 @@ public final class FieldValidator {
         return companyName != null && COMPANY_NAME_PATTERN.matcher(companyName).matches();
     }
 
+    // Product
+    public static boolean productNameValidate(String pName) {
+        return pName != null && P_NAME_PATTERN.matcher(pName).matches() && !containsBadWord(pName);
+    }
+
+    public static boolean productDescValidate(String pDesc) {
+        return pDesc != null && P_DESC_PATTERN.matcher(pDesc).matches() && !containsBadWord(pDesc);
+    }
+
+    public static boolean productCategoryValidate(String pCat) {
+        return pCat != null && P_CATEGORY_PATTERN.matcher(pCat).matches();
+    }
+
+    public static boolean productPriceValidate(String pPrice) {
+        return pPrice != null && P_PRICE_PATTERN.matcher(pPrice).matches();
+    }
+
+    public static boolean productStockValidate(String pStock) {
+        return pStock != null && P_STOCK_PATTERN.matcher(pStock).matches();
+    }
+
     // Attributi
+
+    // Product
+    private static final Pattern P_NAME_PATTERN = Pattern.compile("^[\\s\\S]{5,250}$");
+    private static final Pattern P_DESC_PATTERN = Pattern.compile("^[\\s\\S]{30,16000}$");
+    private static final Pattern P_CATEGORY_PATTERN = Pattern.compile("^(0|[1-9]\\d*)$");
+    private static final Pattern P_PRICE_PATTERN = Pattern.compile("^(0|[1-9]\\d*)(\\.\\d{1,2})?$");
+    private static final Pattern P_STOCK_PATTERN = P_CATEGORY_PATTERN;
+
+    // Company
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_-]{3,16}$");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[!@#$%^&*(),.?\":{}|<>_])[a-zA-Z0-9!@#$%^&*(),.?\":{}|<>_]{8,20}$");
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^(?=.{1,254}$)[a-zA-Z0-9](?!.*?[.]{2})[a-zA-Z0-9._%+-]{0,63}@[a-zA-Z0-9](?!.*--)[a-zA-Z0-9.-]{0,253}\\.[a-zA-Z]{2,}$");
