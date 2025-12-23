@@ -28,8 +28,9 @@ import java.util.List;
 )
 public class ProductFileServlet extends HttpServlet {
 
-    final String IMGS_PATH = "C:/Users/mario/IdeaProjects/nexware/product-images/";
-    final String FILE_PATH = "C:/Users/mario/IdeaProjects/nexware/product-files/";
+    private static final String BASE_PATH = System.getProperty("user.home") + File.separator + "nexware_data" + File.separator;
+    final String IMGS_PATH = BASE_PATH + "product-images" + File.separator;
+    final String FILE_PATH = BASE_PATH + "product-files" + File.separator;
     final String FALLBACK_IMG = "no_image_fallback.png";
 
     @Override
