@@ -14,8 +14,6 @@ public class AuthFilter implements Filter {
     private static final String LOGIN_SERVLET = "/myNexware/loginEndpoint";
     private static final String REGISTER_SERVLET = "/myNexware/registerEndpoint";
     private static final String RESERVED_AREA = "/myNexware";
-    private static final String CART = "/myNexware/cart";
-    private static final String CHECKOUT = "/myNexware/cart/checkout";
     private static final String LOGIN_PAGE = "/myNexware/login";
 
     @Override
@@ -35,20 +33,6 @@ public class AuthFilter implements Filter {
             else
                 chain.doFilter(request, response);
 
-            return;
-        }
-
-        if (path.startsWith(context + CHECKOUT)) {
-            if (logged)
-                chain.doFilter(request, response);
-            else
-                res.sendRedirect(LOGIN_PAGE);
-
-            return;
-        }
-
-        if (path.startsWith(context + CART)) {
-            chain.doFilter(request, response);
             return;
         }
 

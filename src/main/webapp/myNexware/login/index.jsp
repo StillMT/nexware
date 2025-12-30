@@ -31,10 +31,6 @@
 
                     <div class="form-row final">
                         <span class="underline">Password dimenticata?</span>
-                        <span>
-                            <input type="checkbox" id="remember_me" name="remember_me" />
-                            <label for="remember_me">Ricordami</label>
-                        </span>
                     </div>
 
                     <input type="submit" value="Login" />

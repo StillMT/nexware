@@ -21,7 +21,7 @@
                     <% } %>
 
                 </span></a>
-                <a href="${pageContext.request.contextPath}/myNexware/cart"><span class="user-action">
+                <a href="${pageContext.request.contextPath}/myNexware/cart/"><span class="user-action">
                     <i class="fa-solid fa-cart-shopping"></i>
                 </span></a>
             </div>
@@ -32,7 +32,7 @@
 
     <div class="search-bar">
         <i class="fa-solid fa-magnifying-glass" id="search-icon" ></i>
-        <form class="search-form" action="${pageContext.request.contextPath}/catalogue/" method="GET">
+        <form class="search-form" action="${pageContext.request.contextPath}/catalogue/">
             <input type="search" class="search-input" name="q" placeholder="Cerca software..." autocomplete="off" />
             <input type="submit" class="search-btn" value="Cerca" />
         </form>

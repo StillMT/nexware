@@ -144,6 +144,7 @@ public final class DriverManagerConnectionPool {
 
                     pc.connection.close();
                     freeDbConnections.remove(pc);
+                    logConnectionStatuses("Pooled connections: " + freeDbConnections.size());
                 } catch (SQLException e) {
                     logSqlError(e);
                 }

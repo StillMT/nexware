@@ -1,7 +1,11 @@
 package it.unisa.nexware.application.servlets;
 
+import it.unisa.nexware.application.beans.CompanyBean;
 import it.unisa.nexware.application.beans.ProductBean;
+import it.unisa.nexware.application.enums.ProductStatus;
+import it.unisa.nexware.application.utils.FieldValidator;
 import it.unisa.nexware.application.utils.SessionMessage;
+import it.unisa.nexware.storage.dao.ProductDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,6 +19,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -87,21 +94,20 @@ public class ProductFileServlet extends HttpServlet {
         File imgDir = new File(IMGS_PATH + productId);
         File[] matches = null;
 
-        if (imgDir.exists() && imgDir.isDirectory()) {
+        if (imgDir.exists() && imgDir.isDirectory())
             matches = imgDir.listFiles((_, name) -> name.startsWith(imgNumber + "."));
-        }
 
         if (matches != null && matches.length > 0) {
             File imageToServe = matches[0];
             String mime = getServletContext().getMimeType(imageToServe.getName());
-            if (mime == null) mime = "image/jpeg";
+            if (mime == null)
+                mime = "image/jpeg";
 
             response.setContentType(mime);
             response.setContentLength((int) imageToServe.length());
             Files.copy(imageToServe.toPath(), response.getOutputStream());
-        } else {
+        } else
             serveFallback(response);
-        }
     }
 
     private void handleProductUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -183,7 +189,10 @@ public class ProductFileServlet extends HttpServlet {
         String forwardPath = (String) request.getAttribute("productForward");
         String filesToo = (String) request.getAttribute("filesToo");
 
-        if (product == null || forwardPath == null) return;
+        if (product == null || forwardPath == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
 
         String productId = String.valueOf(product.getId());
         File imgDir = new File(IMGS_PATH + productId);

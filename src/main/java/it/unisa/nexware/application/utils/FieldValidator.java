@@ -15,7 +15,7 @@ public final class FieldValidator {
 
     // Metodi formatting
     public static String formatEuroPrice(BigDecimal price) {
-        return String.format("€%,.2f", price);
+        return String.format("€&nbsp;%,.2f", price);
     }
 
     public static String formatDateTime(LocalDateTime dt) {

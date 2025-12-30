@@ -103,9 +103,46 @@
             <%@ include file="/WEB-INF/includes/popup.jspf" %>
 
             <% } else { %>
+            <div class="error">
+                <%
+                    String mess = "";
 
-            <%= err %>
+                    switch (err) {
+                        case "NO_ACT":
+                            mess = "Azione non valida. Riprova dalla dashboard.";
+                            break;
 
+                        case "LIMITED_COM":
+                            mess = "Il tuo account è limitato. Contatta l'assistenza per aggiungere prodotti.";
+                            break;
+
+                        case "NO_INFO_COM":
+                            mess = "Devi completare il profilo aziendale prima di poter aggiungere prodotti.";
+                            break;
+
+                        case "INV_ID":
+                            mess = "ID prodotto non valido.";
+                            break;
+
+                        case "PD_NOT_FOUND":
+                            mess = "Prodotto non trovato. Potrebbe essere stato eliminato.";
+                            break;
+
+                        case "PD_COMPANY_MISMATCH":
+                            mess = "Non hai i permessi necessari per modificare questo prodotto.";
+                            break;
+
+                        case "INV_PARAM":
+                            mess = "Dati non validi o nome prodotto già esistente. Controlla i campi evidenziati.";
+                            break;
+
+                        case "ERR_DB":
+                            mess = "Errore interno al database durante il salvataggio. Riprova più tardi.";
+                            break;
+                    }
+                %>
+                <%= mess %>
+            </div>
             <% } %>
         </main>
 

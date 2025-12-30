@@ -14,6 +14,38 @@ public class ProductDAO {
 
     private static final Logger logger = Logger.getLogger(ProductDAO.class.getName());
 
+    public static List<ProductBean> doGetCartedProducts(CompanyBean company) {
+        final String sql = "SELECT P.id, P.name, P.price, P.stock, P.state, C.company_name FROM carted_product CP " +
+                "JOIN product P ON CP.id_product = P.id JOIN company C ON P.id_company = C.id " +
+                "WHERE CP.id_company = ? ORDER BY CP.id;";
+        List<ProductBean> products = new ArrayList<>();
+
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManagerConnectionPool.getConnection();
+            if (con == null)
+                return null;
+
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, company.getId());
+
+            rs = ps.executeQuery();
+            while (rs.next())
+                products.add(new ProductBean(rs.getInt("id"), rs.getString("name"),
+                        ProductStatus.valueOf(rs.getString("state")), rs.getBigDecimal("price"),
+                        rs.getInt("stock"), rs.getString("company_name")));
+        } catch (SQLException e) {
+            DriverManagerConnectionPool.logSqlError(e, logger);
+        } finally {
+            DriverManagerConnectionPool.closeSqlParams(con, ps, rs);
+        }
+
+        return products;
+    }
+
     public static List<ProductBean> doGetProductsByCompany(CompanyBean company, String searchQuery,
                                                            String startDate, String endDate, String statusFilter) {
         final String sql = "SELECT * FROM product WHERE id_company = ? AND !(state = 'CANCELED' AND modifying_date <= DATE_SUB(NOW(), INTERVAL 1 DAY))" +

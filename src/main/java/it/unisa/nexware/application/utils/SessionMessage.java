@@ -1,5 +1,6 @@
 package it.unisa.nexware.application.utils;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class SessionMessage {
@@ -17,6 +18,10 @@ public class SessionMessage {
 
     public LocalDateTime getTime() {
         return dTime;
+    }
+
+    public boolean isValid() {
+        return Duration.between(dTime, LocalDateTime.now()).toSeconds() <= 30;
     }
 
     // Attributi

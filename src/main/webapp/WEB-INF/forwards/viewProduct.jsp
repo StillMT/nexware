@@ -77,7 +77,7 @@
 
                         <span class="category">
                             Categoria:
-                            <a href="${pageContext.request.contextPath}/catalogue/?cat=<%= p.getIdCategory() %>">
+                            <a href="${pageContext.request.contextPath}/catalogue/?category-filter=<%= p.getIdCategory() %>">
                                 <%= request.getAttribute("catName") %>
                             </a>
                         </span>
@@ -89,7 +89,7 @@
                         </span>
 
                         <div class="add-to-cart-wrapper">
-                            <a href="${pageContext.request.contextPath}/myNexware/cart/?a=add&p=<%= p.getId() %>">
+                            <a href="${pageContext.request.contextPath}/myNexware/cart/addProduct?p=<%= p.getId() %>">
                                 <span class="add-to-cart">Aggiungi al carrello</span>
                             </a>
                         </div>

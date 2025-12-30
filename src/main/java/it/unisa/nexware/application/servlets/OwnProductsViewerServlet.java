@@ -52,7 +52,7 @@ public class OwnProductsViewerServlet extends HttpServlet {
 
         SessionMessage sm = (SessionMessage) s.getAttribute("queryProduct");
         if (sm != null)
-            if (Duration.between(sm.getTime(), LocalDateTime.now()).toSeconds() <= 30)
+            if (sm.isValid())
                 searchQuery = sm.getMessage();
             else
                 s.removeAttribute("queryProduct");

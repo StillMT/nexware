@@ -47,7 +47,7 @@ public class AuthenticationServlet extends HttpServlet {
                     return;
                 }
 
-                SessionSetter.setSessionToLogin(request.getSession(), loggedCompany, false);
+                SessionSetter.setSessionToLogin(request.getSession(), loggedCompany);
                 response.sendRedirect("/");
                 break;
 
@@ -70,7 +70,7 @@ public class AuthenticationServlet extends HttpServlet {
                 int cmId = CompanyDAO.doRegisterCompany(company, password);
                 if (cmId > 0) {
                     company.setId(cmId);
-                    SessionSetter.setSessionToLogin(request.getSession(), company, true);
+                    SessionSetter.setSessionToLogin(request.getSession(), company);
                     response.sendRedirect("/");
                 } else
                     response.sendRedirect("/myNexware/login?e=ERR_DB_R");

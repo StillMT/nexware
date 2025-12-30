@@ -11,9 +11,18 @@ public class ProductBean {
     public ProductBean() {
         id = idCategory = idCompany = stock = 0;
         name = description = "";
-        creationDate = updateDate = LocalDateTime.now();
+        creationDate = updateDate = LocalDateTime.MIN;
         status = ProductStatus.CANCELED;
         price = BigDecimal.ZERO;
+    }
+
+    public ProductBean(int id, String name, ProductStatus status, BigDecimal price, int stock, String companyName) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
+        this.price = price;
+        this.stock = stock;
+        this.companyName = companyName;
     }
 
     private ProductBean(int id, String name, String description, int idCategory,
