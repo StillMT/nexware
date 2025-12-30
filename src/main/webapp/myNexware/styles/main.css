@@ -1,0 +1,114 @@
+/* Import di un font sofisticato */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600&display=swap');
+
+.main-cont {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #fcfcfc; /* Un bianco sporco molto delicato */
+    padding: 20px 0 60px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.area-personale {
+    width: 92%;
+    max-width: 1400px;
+}
+
+.area-personale h1 {
+    font-size: 2.5rem;
+    font-weight: 300; /* Tratto leggero per eleganza */
+    color: #1a1a1a;
+    margin-bottom: 40px;
+    letter-spacing: -0.02em;
+    text-align: center;
+}
+
+/* Griglia bilanciata */
+.menu {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+/* La Card: Minimalismo d'Elite */
+.card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+    background-color: #ffffff;
+    color: #444;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 1.15rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase; /* Testo in maiuscolo per un look più "boutique" */
+    border-radius: 4px; /* Angoli quasi retti per più rigore */
+    border: 1px solid #f0f0f0;
+    transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+
+/* Linea decorativa invisibile che si attiva */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+}
+
+/* Hover: Raffinato e profondo */
+.card:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+    color: #000;
+    font-weight: 600;
+}
+
+.card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Logout: Distinto con garbo */
+.card.logout {
+    color: #999;
+}
+
+.card.logout:hover {
+    color: #b33939;
+    border-color: #f8d7da;
+}
+
+.card.logout::before {
+    background-color: #b33939;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .menu {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .area-personale h1 {
+        font-size: 2rem;
+    }
+    .menu {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .card {
+        min-height: 180px;
+    }
+}
