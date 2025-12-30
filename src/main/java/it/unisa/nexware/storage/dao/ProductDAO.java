@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 
 public class ProductDAO {
 
-    // Attributi
     private static final Logger logger = Logger.getLogger(ProductDAO.class.getName());
 
     public static List<ProductBean> doGetProductsByCompany(CompanyBean company, String searchQuery,
@@ -175,5 +174,123 @@ public class ProductDAO {
         final String sql = "SELECT id FROM product WHERE name = ?";
 
         return CompanyDAO.checkAvailability(productName, sql);
+    }
+
+    public static List<ProductBean> doGetCatalogueProducts() {
+        final String sql = "SELECT P.id, P.name, P.id_category, P.price, P.stock, C.company_name FROM product P INNER JOIN company C ON P.id_company = C.id WHERE P.state = 'ACTIVE' ORDER BY id DESC";
+
+        List <ProductBean> products = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManagerConnectionPool.getConnection();
+            if (con == null)
+                return products;
+
+            ps= con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ProductBean product = (new ProductBean(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getInt("id_category"),
+                        rs.getBigDecimal("price"),
+                        rs.getInt("stock")
+                ));
+                product.setCompanyName(rs.getString("company_name"));
+
+                products.add(product);
+            }
+
+        } catch (SQLException e) {
+            DriverManagerConnectionPool.logSqlError(e, logger);
+        }finally {
+            DriverManagerConnectionPool.closeSqlParams(con, ps, rs);
+        }
+
+        return products;
+    }
+
+    public static List<ProductBean> doGetProductsByCategory(int categoryId) {
+        final String sql = "SELECT P.id, P.name, P.id_category, P.price, P.stock, C.company_name " +
+                "FROM product P INNER JOIN company C ON P.id_company = C.id " +
+                "WHERE P.state = 'ACTIVE' AND P.id_category = ? " +
+                "ORDER BY P.id DESC";
+
+        List<ProductBean> products = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManagerConnectionPool.getConnection();
+            if (con == null) return products;
+
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, categoryId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ProductBean product = new ProductBean(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getInt("id_category"),
+                        rs.getBigDecimal("price"),
+                        rs.getInt("stock")
+                );
+                product.setCompanyName(rs.getString("company_name"));
+                products.add(product);
+            }
+
+        } catch (SQLException e) {
+            DriverManagerConnectionPool.logSqlError(e, logger);
+        } finally {
+            DriverManagerConnectionPool.closeSqlParams(con, ps, rs);
+        }
+
+        return products;
+    }
+
+    public static List<ProductBean> doSearchByName(String name) {
+        final String sql = "SELECT P.id, P.name, P.id_category, P.price, P.stock, C.company_name " +
+                "FROM product P INNER JOIN company C ON P.id_company = C.id " +
+                "WHERE P.state = 'ACTIVE' AND P.name LIKE ? " +
+                "ORDER BY P.id DESC";
+
+        List<ProductBean> products = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManagerConnectionPool.getConnection();
+            if (con == null) return products;
+
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + name + "%");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ProductBean product = new ProductBean(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getInt("id_category"),
+                        rs.getBigDecimal("price"),
+                        rs.getInt("stock")
+                );
+                product.setCompanyName(rs.getString("company_name"));
+                products.add(product);
+            }
+
+        } catch (SQLException e) {
+            DriverManagerConnectionPool.logSqlError(e, logger);
+        } finally {
+            DriverManagerConnectionPool.closeSqlParams(con, ps, rs);
+        }
+
+        return products;
     }
 }

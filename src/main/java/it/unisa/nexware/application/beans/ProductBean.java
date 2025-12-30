@@ -42,6 +42,15 @@ public class ProductBean {
         this.companyName = companyName;
     }
 
+    public ProductBean(int id, String name, int idCategory, BigDecimal price, int stock) {
+        this.id = id;
+        this.name = name;
+        this.idCategory = idCategory;
+        this.price = price;
+        this.stock = stock;
+    }
+
+
     // Metodi di accesso
     public int getId() {
         return id;
