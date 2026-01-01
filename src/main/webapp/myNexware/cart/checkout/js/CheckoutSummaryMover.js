@@ -1,5 +1,5 @@
-const summary = document.querySelector('.cart-summary');
-const container = document.querySelector('.cart-details');
+const summary = document.querySelector('.checkout-summary');
+const container = document.querySelector('.side-details');
 
 let currentY = 0;
 const speed = 0.08;
@@ -13,13 +13,15 @@ function updatePosition() {
     const containerRect = container.getBoundingClientRect();
     const summaryHeight = summary.offsetHeight;
     const containerHeight = container.offsetHeight;
+    const startOffset = summary.offsetTop;
 
-    let targetY = -containerRect.top + gap;
+    let targetY = gap - (containerRect.top + startOffset);
+    const maxTranslate = containerHeight - summaryHeight - startOffset;
 
     if (targetY < 0)
         targetY = 0;
-    else if (targetY > containerHeight - summaryHeight)
-        targetY = containerHeight - summaryHeight;
+    else if (targetY > maxTranslate)
+        targetY = maxTranslate;
 
     currentY += (targetY - currentY) * speed;
 

@@ -14,10 +14,41 @@ public class ProductDAO {
 
     private static final Logger logger = Logger.getLogger(ProductDAO.class.getName());
 
+    public static List<ProductBean> doGetCheckoutProducts(CompanyBean company) {
+        final String sql = "SELECT P.id, P.name, P.price, P.stock, C.company_name FROM carted_product CP " +
+                "JOIN product P ON CP.id_product = P.id JOIN company C ON P.id_company = C.id " +
+                "WHERE CP.id_company = ? AND P.state != 'HIDDEN' AND P.state != 'CANCELED' AND P.stock >= 1 ORDER BY CP.id";
+        List<ProductBean> products = new ArrayList<>();
+
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManagerConnectionPool.getConnection();
+            if (con == null)
+                return null;
+
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, company.getId());
+
+            rs = ps.executeQuery();
+            while (rs.next())
+                products.add(new ProductBean(rs.getInt("id"), rs.getString("name"),
+                        rs.getBigDecimal("price"), rs.getInt("stock"), rs.getString("company_name")));
+        } catch (SQLException e) {
+            DriverManagerConnectionPool.logSqlError(e, logger);
+        } finally {
+            DriverManagerConnectionPool.closeSqlParams(con, ps, rs);
+        }
+
+        return products;
+    }
+
     public static List<ProductBean> doGetCartedProducts(CompanyBean company) {
         final String sql = "SELECT P.id, P.name, P.price, P.stock, P.state, C.company_name FROM carted_product CP " +
                 "JOIN product P ON CP.id_product = P.id JOIN company C ON P.id_company = C.id " +
-                "WHERE CP.id_company = ? ORDER BY CP.id;";
+                "WHERE CP.id_company = ? ORDER BY CP.id";
         List<ProductBean> products = new ArrayList<>();
 
         Connection con = null;

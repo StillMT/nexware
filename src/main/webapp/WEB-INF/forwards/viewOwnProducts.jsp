@@ -34,14 +34,6 @@
 
         <main class="main-cont">
             <div class="list-wrapper">
-                <div class="list-wrapper-header">
-                    <span class="title">I miei prodotti</span>
-                    <form action="productManager/" method="post">
-                        <input type="hidden" name="a" value="add" />
-                        <button class="add-product">Aggiungi prodotto</button>
-                    </form>
-                </div>
-
                 <%
                     if (s.getAttribute("queryProduct") != null) {
                         s.removeAttribute("queryProduct");
@@ -53,11 +45,21 @@
                             message += "modificato";
                         message += " correttamente.";
                 %>
-                <div class="product-message">
+                <span class="product-message">
                     <i class="fa-solid fa-check"></i>
                     <%= message %>
-                </div>
+                </span>
+                <% } else { %>
+                <span></span>
                 <% } %>
+
+                <div class="list-wrapper-header">
+                    <span class="title">I miei prodotti</span>
+                    <form action="productManager/" method="post">
+                        <input type="hidden" name="a" value="add" />
+                        <button class="add-product">Aggiungi prodotto</button>
+                    </form>
+                </div>
 
                 <form id="filter-form" method="POST">
                     <div class="list-filter">
@@ -105,7 +107,7 @@
                     </div>
 
                     <%
-                        if (products != null && !products.isEmpty()) {
+                        if (products != null && !products.isEmpty())
                             for (ProductBean p : products) {
                     %>
                     <div class="list-row">
@@ -131,7 +133,7 @@
                         </span>
                     </div>
                     <% }
-                    } else { %>
+                    else { %>
 
                     <div class="empty-list">
                         Mi dispiace ma non sono stati trovati prodotti con i filtri usati, prova a modificarli.
@@ -146,6 +148,8 @@
         </main>
 
         <script>
+            const dbErr = <%= products == null ? "true" : "false" %>;
+
             const today = new Date("<%= today %>");
             const startDate = "<%= startDate %>";
             const endDate = "<%= endDate %>";

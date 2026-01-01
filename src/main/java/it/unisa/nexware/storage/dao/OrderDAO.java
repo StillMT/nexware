@@ -3,6 +3,7 @@ package it.unisa.nexware.storage.dao;
 import it.unisa.nexware.application.beans.CompanyBean;
 import it.unisa.nexware.application.beans.OrderBean;
 import it.unisa.nexware.application.beans.OrderedProductBean;
+import it.unisa.nexware.application.beans.ProductBean;
 import it.unisa.nexware.application.enums.OrderStatus;
 import it.unisa.nexware.storage.utils.DriverManagerConnectionPool;
 
@@ -14,6 +15,73 @@ import java.util.logging.Logger;
 public class OrderDAO {
 
     private static final Logger logger = Logger.getLogger(OrderDAO.class.getName());
+
+    public static boolean doCreateOrder(CompanyBean c, String orderNr, String cardNr,
+                                        BigDecimal total, List<ProductBean> products) {
+        String sql = "INSERT INTO order_table VALUES (NULL, ?, ?, DEFAULT, DEFAULT, ?, ?)";
+        boolean result = false;
+
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManagerConnectionPool.getConnection();
+            if (con == null)
+                return false;
+            con.setAutoCommit(false);
+
+            ps = con.prepareStatement(sql,  Statement.RETURN_GENERATED_KEYS);
+
+            ps.setInt(1, c.getId());
+            ps.setString(2, orderNr);
+            ps.setString(3, cardNr);
+            ps.setBigDecimal(4, total);
+
+            if (ps.executeUpdate() == 1) {
+                rs = ps.getGeneratedKeys();
+                rs.next();
+                int orderId = rs.getInt(1);
+                ps.close();
+
+                sql = "INSERT INTO ordered_product VALUES (NULL, ?, ?, ?)";
+                ps = con.prepareStatement(sql);
+
+                for (ProductBean p : products) {
+                    ps.setInt(1, orderId);
+                    ps.setInt(2, p.getId());
+                    ps.setBigDecimal(3, p.getPrice());
+
+                    ps.addBatch();
+                }
+
+                boolean batchSuccess = true;
+                for (int r : ps.executeBatch())
+                    if (r == Statement.EXECUTE_FAILED) {
+                        batchSuccess = false;
+                        break;
+                    }
+                if (batchSuccess) {
+                    con.commit();
+                    result = true;
+                } else
+                    con.rollback();
+
+                con.setAutoCommit(true);
+            }
+        } catch (SQLException e) {
+            try {
+                con.rollback();
+                con.setAutoCommit(true);
+            } catch (SQLException ex) {DriverManagerConnectionPool.logSqlError(ex, logger);}
+
+            DriverManagerConnectionPool.logSqlError(e, logger);
+        } finally {
+            DriverManagerConnectionPool.closeSqlParams(con, ps, rs);
+        }
+
+        return result;
+    }
 
     public static List<OrderBean> doGetOrdersByCompany(
             CompanyBean company,

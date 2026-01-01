@@ -4,7 +4,7 @@
     gap: 1em;
 
     width: 100%;
-    max-width: 60em;
+    max-width: 70em;
 }
 
 .adding-message {
@@ -20,12 +20,35 @@
     background-color: #c4ffaa;
     border: #277a00 2px solid;
     color: #277a00;
+
+    transition:
+            opacity 0.3s ease,
+            visibility 0.3s step-end,
+            max-height 0.3s ease,
+            padding 0.3s ease,
+            margin 0.3s ease;
+    max-height: 4em;
+    opacity: 1;
+    visibility: visible;
+    overflow: hidden;
 }
 
 .adding-message.error {
     background-color: #ffaaaa;
     border: #7a0000 2px solid;
     color: #7a0000;
+}
+
+.adding-message.hide {
+    opacity: 0;
+    visibility: hidden;
+
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-width: 0;
 }
 
 .cart-title {
@@ -38,6 +61,7 @@
     flex-direction: row;
     gap: 1em;
 
+    min-width: 0;
     position: relative;
 }
 
@@ -62,7 +86,8 @@
     flex-direction: column;
     gap: 1em;
 
-    width: 100%;
+    flex: 1;
+    min-width: 0;
 }
 
 .item, .cart-summary {
@@ -77,6 +102,7 @@
     flex-direction: row;
     gap: 0.7em;
 
+    min-width: 0;
     width: 100%;
 }
 
@@ -90,18 +116,23 @@
     flex-direction: column;
     justify-content: space-between;
 
+    min-width: 0;
     width: 100%;
 }
 
 .item > .item-details > .item-title {
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
 .item > .item-details > .item-title > :is(.item-name, .company-item-title) {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    white-space: nowrap;
+    width: 100%;
 
     font-weight: 500;
 }
@@ -112,7 +143,7 @@
     color: black;
     cursor: pointer;
 
-    width: fit-content;
+    max-width: 100%;
 }
 
 .item > .item-details > .item-title > .item-name:hover {
@@ -163,14 +194,21 @@
 
 .no-items {
     display: none;
+
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+
+    font-style: italic;
 }
 
 .cart-summary {
-    width: 20em;
+    width: 17em;
     height: fit-content;
 
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
 
     /*position: sticky;
     top: 10em;              Modo statico
@@ -215,7 +253,22 @@
     transition: 0.2s ease;
 }
 
-.cart-summary > form > input[type="submit"]:hover {
+.cart-summary > form > input[type="submit"]:not(:disabled):hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+}
+
+.cart-summary > form > input[type="submit"]:disabled {
+    background-color: #a6dcff;
+    cursor: default;
+}
+
+.cart-summary > .warning-checkout {
+    display: none;
+
+    color: darkred;
+    font-size: 0.7em;
+    text-align: center;
+
+    margin-top: 0.7em;
 }

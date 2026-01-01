@@ -49,10 +49,34 @@
     gap: 0.2em;
 
     padding: 1em;
-    background-color: #c4ffaa;
     border-radius: 1em;
+
+    background-color: #c4ffaa;
     border: #277a00 2px solid;
     color: #277a00;
+
+    transition:
+            opacity 0.3s ease,
+            visibility 0.3s step-end,
+            max-height 0.3s ease,
+            padding 0.3s ease,
+            margin 0.3s ease;
+    max-height: 4em;
+    opacity: 1;
+    visibility: visible;
+    overflow: hidden;
+}
+
+.product-message.hide {
+    opacity: 0;
+    visibility: hidden;
+
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-width: 0;
 }
 
 .list-filter {

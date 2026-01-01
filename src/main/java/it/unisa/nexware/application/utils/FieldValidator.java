@@ -3,6 +3,9 @@ package it.unisa.nexware.application.utils;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -132,7 +135,54 @@ public final class FieldValidator {
         return pStock != null && P_STOCK_PATTERN.matcher(pStock).matches();
     }
 
+    // Carta di credito
+    public static boolean cardOwnerValidate(String cardOwner) {
+        return cardOwner != null && CARD_OWNER_PATTERN.matcher(cardOwner).matches();
+    }
+
+    public static boolean cardValidate(String cardNumber, String cvv, String expiry) {
+        String cleanNum = cardNumber.replaceAll("\\s+", "");
+
+        if (cleanNum.length() < 13 || cleanNum.length() > 19 || !checkLuhn(cleanNum))
+            return false;
+
+        if (cvv == null || !cvv.matches("\\d{3,4}"))
+            return false;
+
+        return isExpiryValid(expiry);
+    }
+
+    private static boolean checkLuhn(String number) {
+        int sum = 0;
+        boolean shouldDouble = false;
+        for (int i = number.length() - 1; i >= 0; i--) {
+            int digit = Character.getNumericValue(number.charAt(i));
+            if (shouldDouble) {
+                digit *= 2;
+                if (digit > 9) digit -= 9;
+            }
+            sum += digit;
+            shouldDouble = !shouldDouble;
+        }
+        return (sum % 10) == 0;
+    }
+
+    private static boolean isExpiryValid(String expiry) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+            YearMonth expDate = YearMonth.parse(expiry, formatter);
+            YearMonth now = YearMonth.now();
+
+            return !expDate.isBefore(now);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
     // Attributi
+
+    // Carta
+    private static final Pattern CARD_OWNER_PATTERN = Pattern.compile("^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\\s+[A-Za-zÀ-ÖØ-öø-ÿ]+)+$");
 
     // Product
     private static final Pattern P_NAME_PATTERN = Pattern.compile("^[\\s\\S]{5,250}$");
