@@ -1,4 +1,4 @@
-package it.unisa.nexware.application.utils;
+package it.unisa.nexware.application.dto;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

@@ -14,31 +14,22 @@
                     <h1>Area Personale</h1>
 
                     <div class="menu">
-
-                        <!-- I MIEI ANNUNCI -->
                         <a class="card"
                            href="${pageContext.request.contextPath}/myNexware/products">
-                            I miei annunci
+                            I miei prodotti
                         </a>
-
-                        <!-- I MIEI ORDINI -->
                         <a class="card"
                            href="${pageContext.request.contextPath}/myNexware/orders">
                             I miei ordini
                         </a>
-
-                        <!-- IL MIO PROFILO -->
                         <a class="card"
                            href="${pageContext.request.contextPath}/myNexware/profile">
                             Il mio profilo
                         </a>
-
-                        <!-- LOGOUT -->
                         <a class="card logout"
                            href="${pageContext.request.contextPath}/myNexware/logout">
                             Logout
                         </a>
-
                     </div>
                 </div>
 

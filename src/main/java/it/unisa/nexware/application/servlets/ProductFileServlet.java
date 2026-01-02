@@ -1,11 +1,7 @@
 package it.unisa.nexware.application.servlets;
 
-import it.unisa.nexware.application.beans.CompanyBean;
 import it.unisa.nexware.application.beans.ProductBean;
-import it.unisa.nexware.application.enums.ProductStatus;
-import it.unisa.nexware.application.utils.FieldValidator;
-import it.unisa.nexware.application.utils.SessionMessage;
-import it.unisa.nexware.storage.dao.ProductDAO;
+import it.unisa.nexware.application.dto.SessionMessage;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,9 +15,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;

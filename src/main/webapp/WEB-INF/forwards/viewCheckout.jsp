@@ -2,7 +2,7 @@
 <%@ page import="it.unisa.nexware.application.beans.ProductBean" %>
 <%@ page import="it.unisa.nexware.application.utils.FieldValidator" %>
 <%@ page import="java.math.BigDecimal" %>
-<%@ page import="it.unisa.nexware.application.utils.SessionMessage" %>
+<%@ page import="it.unisa.nexware.application.dto.SessionMessage" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
