@@ -8,7 +8,6 @@ a {
     flex-direction: column;
     justify-content: flex-start;
     gap: 1em;
-
     width: 80%;
     max-width: 110em;
 }
@@ -25,22 +24,6 @@ a {
     font-weight: 700;
 }
 
-.add-product {
-    display: inline-block;
-    color: white;
-    background-color: #3eb6ee;
-
-    border-radius: 20px;
-    border: #0096da 2px solid;
-
-    padding: 0.5em 1em;
-    transition: 0.1s ease;
-}
-
-.add-product:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 2);
-}
 
 .list-filter {
     display: grid;
@@ -52,7 +35,6 @@ a {
 .filter {
     display: flex;
     padding-right: 0;
-
     border: 1px #a9a9a9 solid;
     border-radius: 8px;
     overflow: hidden;
@@ -63,19 +45,8 @@ a {
     outline: none;
     margin: 0;
     font-family: "Poppins", sans-serif;
-
     width: 100%;
     padding: 0.3em 0.5em;
-}
-
-.filter > :first-child {
-    border-top-left-radius: 7px;
-    border-bottom-left-radius: 7px;
-}
-
-.filter > *:only-child {
-    border-top-left-radius: 7px;
-    border-bottom-left-radius: 7px;
 }
 
 .span-separator {
@@ -83,25 +54,11 @@ a {
     padding: 0.3em 0.5em;
     margin: 0;
     font-size: 0.8em;
-
     border-right: 1px #a9a9a9 solid;
     border-left: 1px #a9a9a9 solid;
-
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.filter > .span-separator:first-child {
-    border-left: none;
-    border-top-left-radius: 7px;
-    border-bottom-left-radius: 7px;
-}
-
-.filter > *:last-child {
-    border-right: none !important;
-    border-top-right-radius: 7px;
-    border-bottom-right-radius: 7px;
 }
 
 .list-filter > input[type="submit"] {
@@ -109,42 +66,28 @@ a {
     outline: none;
     margin: 0;
     cursor: pointer;
-
     font-family: "Poppins", sans-serif;
-
     background-color: #3eb6ee;
     border-radius: 25px;
     color: white;
-
     transition: 0.2s ease;
 }
 
-.list-filter > input[type="submit"]:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 2);
-}
-
-label[for="search-query"] {
-    display: flex;
-    align-items: center;
-    margin-left: 0.5em;
-    color: #bdbdbd;
-}
 
 .list {
     display: flex;
     flex-direction: column;
-
     border: 1px #a9a9a9 solid;
     font-size: 0.95em;
     border-radius: 7px;
+    overflow: hidden;
 }
 
 .list-row {
     display: flex;
     width: 100%;
     align-items: center;
-    padding: 0.6em;
+    padding: 0.8em 0.6em;
     border-bottom: 1px #a9a9a9 solid;
     box-sizing: border-box;
 }
@@ -159,99 +102,83 @@ label[for="search-query"] {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-.list-row > span > .status-pill, .action-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 0.2em 0.8em;
-
-    color: white;
-    font-size: 0.8em;
-    border-radius: 25px;
-}
-
-.list-row > span > .status-pill.active {
-    background-color: #34944a;
-}
-
-.list-row > span > .status-pill.hidden {
-    background-color: #f6af3d;
-}
-
-.list-row > span > .status-pill.canceled {
-    background-color: #da1d1d;
+    text-align: center;
 }
 
 .list-row.header {
     font-weight: 600;
-    display: flex;
-    width: 100%;
+    background-color: #f8f9fa;
 }
 
 .list-row.final {
     border-bottom: none;
-    width: 100%;
-    display: flex;
 }
 
-.list-filter > .filter:last-child input:only-child {
-    border-radius: 7px;
+
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #fff;
+    min-width: 110px;
+}
+
+.status-pill.to_pay { background-color: #e74c3c; }
+.status-pill.waiting { background-color: #f39c12; }
+.status-pill.delivered { background-color: #2ecc71; }
+
+
+.actions-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    overflow: visible !important;
 }
 
 .action-button {
-    background-color: #3eb6ee;
-
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4em 1em;
+    color: white;
+    font-size: 0.75em;
+    font-weight: 600;
+    border-radius: 25px;
     transition: 0.2s ease;
+    border: none;
+    cursor: pointer;
+    min-width: 90px;
+    text-decoration: none;
 }
 
-.action-button:hover {
+
+.action-button.view {
+    background-color: #3eb6ee;
+}
+
+.action-button.view:hover {
     background-color: #2b7b9f;
+}
+
+
+.action-button.confirm {
+    background-color: #2ecc71;
+}
+
+.action-button.confirm:hover {
+    background-color: #25a059;
 }
 
 .empty-list {
     display: flex;
     justify-content: center;
     align-items: center;
-
     width: 100%;
-    height: 20em;
-
+    height: 10em;
     font-style: italic;
-}
-
-.status-pill {
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #fff;
-    display: inline-block;
-    text-align: center;
-    min-width: 110px;
-}
-
-.status-pill.to_pay {
-    background-color: #e74c3c;
-}
-
-/* ARANCIONE – In elaborazione */
-.status-pill.waiting {
-    background-color: #f39c12;
-}
-
-/* VERDE – Consegnato */
-.status-pill.delivered {
-    background-color: #2ecc71;
-}
-
-.list-row.header span
-{
-    flex: 1;
-}
-
-.list-row.final span{
-    flex: 1;
 }

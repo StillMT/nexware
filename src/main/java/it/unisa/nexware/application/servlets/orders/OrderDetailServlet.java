@@ -1,4 +1,4 @@
-package it.unisa.nexware.application.servlets;
+package it.unisa.nexware.application.servlets.orders;
 
 import it.unisa.nexware.application.beans.CompanyBean;
 import it.unisa.nexware.application.beans.OrderBean;
@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.List;
 
 @WebServlet("/myNexware/orders/view/*")
@@ -24,19 +23,14 @@ public class OrderDetailServlet extends HttpServlet {
             throws ServletException, IOException {
 
 
-        String pathInfo = request.getPathInfo(); // es: /12
+        String pathInfo = request.getPathInfo();
         if (pathInfo == null || pathInfo.equals("/")) {
             response.sendRedirect(request.getContextPath() + "/myNexware/orders/");
             return;
         }
 
-        int orderId;
-        try {
-            orderId = Integer.parseInt(pathInfo.substring(1));
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-            return;
-        }
+
+        String orderNr = pathInfo.substring(1);
 
 
         CompanyBean company = (CompanyBean) request.getSession().getAttribute("company");
@@ -46,32 +40,29 @@ public class OrderDetailServlet extends HttpServlet {
         }
 
 
-        OrderBean order = OrderDAO.getOrderById(orderId, company.getId());
+
+        OrderBean order = OrderDAO.getOrderByNumber(orderNr, company.getId());
+
         if (order == null) {
+
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
 
 
-        List<OrderedProductBean> items = OrderedProductDAO.getByOrderId(orderId);
-
-
-        BigDecimal total = BigDecimal.ZERO;
-        if (items != null) {
-            for (OrderedProductBean item : items) {
-                if (item.getPrice() != null) {
-                    total = total.add(item.getPrice());
-                }
-            }
-        }
+        List<OrderedProductBean> items = OrderedProductDAO.getByOrderId(order.getId());
 
 
         request.setAttribute("order", order);
         request.setAttribute("items", items);
-        request.setAttribute("calculatedTotal", total);
 
+        request.getRequestDispatcher("/WEB-INF/forwards/viewOrderDetails.jsp").forward(request, response);
 
-        request.getRequestDispatcher("/myNexware/orders/viewOrderDetails.jsp")
-                .forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
     }
 }
