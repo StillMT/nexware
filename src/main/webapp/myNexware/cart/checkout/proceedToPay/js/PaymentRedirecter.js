@@ -1,0 +1,1 @@
+setTimeout(() => window.location.href = "/myNexware/orders/", 4000);

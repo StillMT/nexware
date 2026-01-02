@@ -22,3 +22,13 @@ filterForm.addEventListener('submit', (e) => {
 statusFilterInput.addEventListener('change', () => {
     filterForm.submit();
 });
+
+if (dbErr === true)
+    showPopup(
+        "Attenzione",
+        "Errore durante la comunicazione con il database, riprova più tardi."
+    );
+
+const pMex = document.querySelector('.product-message');
+if (pMex)
+    setTimeout(() => pMex.classList.add('hide'), 2500);

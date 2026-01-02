@@ -1,11 +1,14 @@
 package it.unisa.nexware.application.servlets;
 
 import it.unisa.nexware.application.beans.CompanyBean;
+import it.unisa.nexware.application.dto.OwnProductsDTO;
 import it.unisa.nexware.application.enums.ProductStatus;
+import it.unisa.nexware.application.facades.OwnProductsFacade;
 import it.unisa.nexware.application.utils.FieldValidator;
-import it.unisa.nexware.application.utils.SessionMessage;
+import it.unisa.nexware.application.dto.SessionMessage;
 import it.unisa.nexware.storage.dao.CategoryDAO;
 import it.unisa.nexware.storage.dao.ProductDAO;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,14 +17,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @WebServlet("/myNexware/products/")
 public class OwnProductsViewerServlet extends HttpServlet {
 
     // Attributi
+    @Inject
+    OwnProductsFacade ownProductsFacade;
     boolean post  = false;
 
     @Override
@@ -57,10 +60,9 @@ public class OwnProductsViewerServlet extends HttpServlet {
             else
                 s.removeAttribute("queryProduct");
 
-        CompanyBean cm = (CompanyBean) s.getAttribute("company");
-        request.setAttribute("products", ProductDAO.doGetProductsByCompany(cm,
-                searchQuery, startDate, endDate, statusFilter));
-        request.setAttribute("category-list", CategoryDAO.doGetCatList());
+        OwnProductsDTO pData = ownProductsFacade.getProductsData((CompanyBean) s.getAttribute("company"), searchQuery, startDate, endDate, statusFilter);
+        request.setAttribute("products", pData.getProducts());
+        request.setAttribute("category-list", pData.getCategories());
 
         request.setAttribute("today",  today.toString());
         request.setAttribute("start-date",  startDate);

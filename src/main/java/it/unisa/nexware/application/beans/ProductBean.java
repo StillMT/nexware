@@ -16,13 +16,17 @@ public class ProductBean {
         price = BigDecimal.ZERO;
     }
 
-    public ProductBean(int id, String name, ProductStatus status, BigDecimal price, int stock, String companyName) {
+    public ProductBean(int id, String name, BigDecimal price, int stock, String companyName) {
         this.id = id;
         this.name = name;
-        this.status = status;
         this.price = price;
         this.stock = stock;
         this.companyName = companyName;
+    }
+
+    public ProductBean(int id, String name, ProductStatus status, BigDecimal price, int stock, String companyName) {
+        this(id, name, price, stock, companyName);
+        this.status = status;
     }
 
     private ProductBean(int id, String name, String description, int idCategory,

@@ -5,7 +5,7 @@ import it.unisa.nexware.application.beans.ProductBean;
 import it.unisa.nexware.application.enums.AccountStatus;
 import it.unisa.nexware.application.enums.ProductStatus;
 import it.unisa.nexware.application.utils.FieldValidator;
-import it.unisa.nexware.application.utils.SessionMessage;
+import it.unisa.nexware.application.dto.SessionMessage;
 import it.unisa.nexware.storage.dao.CategoryDAO;
 import it.unisa.nexware.storage.dao.ProductDAO;
 import jakarta.servlet.ServletException;
@@ -18,7 +18,6 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @WebServlet("/myNexware/products/productManager/")
 @MultipartConfig(

@@ -3,7 +3,7 @@
 <%@ page import="it.unisa.nexware.application.utils.FieldValidator" %>
 <%@ page import="java.math.BigDecimal" %>
 <%@ page import="it.unisa.nexware.application.enums.ProductStatus" %>
-<%@ page import="it.unisa.nexware.application.utils.SessionMessage" %>
+<%@ page import="it.unisa.nexware.application.dto.SessionMessage" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%
@@ -33,8 +33,10 @@
                 </span>
                 <%
                         s.removeAttribute("addingResult");
-                    }
+                    } else {
                 %>
+                    <span></span>
+                <% } %>
 
                 <span class="cart-title">Carrello (<%= pCount %> articol<%= pCount == 1 ? "o" : "i" %>)</span>
 
@@ -44,7 +46,9 @@
                     <div class="cart-items-list">
 
                         <%
-                            if (products != null && !products.isEmpty())
+                            boolean oneProductValid = false;
+                            boolean oneProductNotValid = false;
+                            if (products != null)
                                 for (ProductBean p : products) {
                                     int productId;
                                     String productName;
@@ -57,12 +61,19 @@
                                         productName = "Prodotto non disponibile";
                                         companyName = "";
                                         price = BigDecimal.ZERO;
+
+                                        oneProductNotValid = true;
                                     } else {
                                         productId = p.getId();
                                         productName = p.getName();
                                         companyName = p.getCompanyName();
                                         stock = p.getStock();
                                         price = p.getPrice();
+
+                                        if (stock >= 1)
+                                            oneProductValid = true;
+                                        else
+                                            oneProductNotValid = true;
                                     }
 
                                     if (stock != 0)
@@ -81,12 +92,12 @@
                                 <% if (productId != 0) { %><span class="item-stock<%= stock <= 10 ? " low-stock" : "" %>">Disponibilit&agrave;:&nbsp;<%= stock == 0 ? "non disponibile" : stock %></span><% } %>
                                 <span class="item-remove" data-id="<%= p.getId() %>">Rimuovi</span>
                             </div>
-                            <% if (productId != 0) { %><div class="item-price<%= stock <= 10 ? " low-stock" : "" %>" data-price="<%= price %>"><%= FieldValidator.formatEuroPrice(price) %></div><% } %>
+                            <% if (productId != 0) { %><div class="item-price<%= stock <= 0 ? " low-stock" : "" %>" data-price="<%= price %>"><%= FieldValidator.formatEuroPrice(price) %></div><% } %>
                         </div>
 
                         <% } %>
 
-                        <div class="no-items"></div>
+                        <div class="no-items" style="<%= pCount == 0 ? "display: flex;" : "" %>">Nessun prodotto aggiunto al carrello</div>
                     </div>
 
                     <div class="cart-summary">
@@ -105,9 +116,9 @@
                         </div>
 
                         <form action="checkout/" method="post">
-                            <input type="hidden" name="checkout" value="true" />
-                            <input type="submit" value="Vai al checkout" />
+                            <input type="submit" value="Vai al checkout" <%= pCount == 0 || !oneProductValid ? "disabled" : "" %> />
                         </form>
+                        <span class="warning-checkout" style="<%= oneProductNotValid ? "display: block;" : "" %>">I prodotti non disponibili saranno ignorati nel checkout.</span>
                     </div>
                 </div>
             </div>
@@ -116,6 +127,9 @@
 
         </main>
 
+        <script>
+            const dbErr = <%= products == null ? "true" : "false" %>;
+        </script>
         <script src="js/CartSummaryMover.js"></script>
         <script src="js/CartListHandler.js"></script>
 

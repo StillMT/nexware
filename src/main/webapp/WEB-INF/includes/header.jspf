@@ -7,7 +7,7 @@
 <header>
     <div class="top-bar-wrapper">
         <div class="top-bar">
-            <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/GeneralData/imgs/logo.png" id="banner-image" /></a>
+            <a <%= "/".equals(request.getRequestURI()) ? "" : "href=\"/\"" %>><img src="${pageContext.request.contextPath}/GeneralData/imgs/logo.png" id="banner-image" /></a>
 
             <div class="user-actions">
                 <a href="${pageContext.request.contextPath}/myNexware"><span class="user-action">

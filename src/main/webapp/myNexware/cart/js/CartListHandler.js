@@ -1,5 +1,7 @@
 const loadingBlocker = document.getElementById('blocker');
 const removeButtons = document.querySelectorAll('.item-remove');
+const checkoutButton = document.querySelector('.cart-summary input[type="submit"]');
+const warningCheckout = document.querySelector('.warning-checkout');
 
 removeButtons.forEach(removeButton => removeButton.addEventListener('click', async () => {
     const id = removeButton.dataset.id;
@@ -14,8 +16,9 @@ removeButtons.forEach(removeButton => removeButton.addEventListener('click', asy
         if (data.result === true) {
             itemParent.remove();
             updateCartState();
-        } else
+        } else {
             location.reload();
+        }
     } catch (ex) {
         showPopup(
             "Attenzione",
@@ -23,7 +26,7 @@ removeButtons.forEach(removeButton => removeButton.addEventListener('click', asy
         );
     }
 
-    setTimeout(() => toggleBlocker(), 500);
+    toggleBlocker();
 }));
 
 function toggleBlocker() {
@@ -34,16 +37,27 @@ function updateCartState() {
     const items = document.querySelectorAll('.item');
     const cartDetails = document.querySelector('.cart-details');
 
-    const fees = items.length > 0 ? parseFloat(cartDetails.dataset.fees) : 0;
-
     let subtotal = 0;
+    let validCount = 0;
 
+    let oneProductNotValid = false;
     items.forEach(item => {
         const priceElement = item.querySelector('.item-price');
-        if (priceElement && priceElement.dataset.price)
+        const stockElement = item.querySelector('.item-stock');
+
+
+        const isPurchasable = priceElement &&
+            stockElement &&
+            !stockElement.innerText.toLowerCase().includes('non disponibile');
+
+        if (isPurchasable && priceElement.dataset.price) {
             subtotal += parseFloat(priceElement.dataset.price);
+            validCount++;
+        } else
+            oneProductNotValid = true;
     });
 
+    const fees = validCount > 0 ? parseFloat(cartDetails.dataset.fees) : 0;
     const total = subtotal + fees;
 
     const summaryPrices = document.querySelectorAll('.cart-summary .price');
@@ -55,15 +69,21 @@ function updateCartState() {
 
     const count = items.length;
     const title = document.querySelector('.cart-title');
-    if (title) {
+
+    if (title)
         title.innerText = `Carrello (${count} articol${count === 1 ? 'o' : 'i'})`;
-    }
+
+    if (checkoutButton)
+        checkoutButton.disabled = validCount === 0;
 
     if (count === 0) {
         const noItemsDiv = document.querySelector('.no-items');
         if (noItemsDiv)
-            noItemsDiv.style.display = 'block';
+            noItemsDiv.style.display = 'flex';
     }
+
+    if (!oneProductNotValid)
+        warningCheckout.style.display = '';
 }
 
 function formatCurrency(amount) {
@@ -72,3 +92,13 @@ function formatCurrency(amount) {
         maximumFractionDigits: 2
     });
 }
+
+if (dbErr === true)
+    showPopup(
+        "Attenzione",
+        "Errore durante la comunicazione con il database, riprova più tardi."
+    );
+
+const addingMex = document.querySelector('.adding-message');
+if (addingMex)
+    setTimeout(() => addingMex.classList.add('hide'), 2500);

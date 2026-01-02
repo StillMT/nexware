@@ -1,11 +1,14 @@
 package it.unisa.nexware.storage.dao;
 
 import it.unisa.nexware.application.beans.CompanyBean;
+import it.unisa.nexware.application.beans.ProductBean;
 import it.unisa.nexware.storage.utils.DriverManagerConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class CartDAO {
@@ -72,4 +75,34 @@ public class CartDAO {
         return result;
     }
 
+    public static boolean doRemoveCheckoutedProducts(CompanyBean c, List<ProductBean> products) {
+        final String sql = "DELETE carted_product FROM carted_product WHERE id_company = ? AND id_product IN (" +
+                String.join(",", Collections.nCopies(products.size(), "?") )+ ")";
+        boolean result = false;
+
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = DriverManagerConnectionPool.getConnection();
+            if (con == null)
+                return false;
+
+            ps = con.prepareStatement(sql);
+
+            int index = 1;
+            ps.setInt(index++, c.getId());
+            for (ProductBean p : products)
+                ps.setInt(index++, p.getId());
+
+            if (ps.executeUpdate() == 1)
+                result = true;
+        } catch (SQLException e) {
+            DriverManagerConnectionPool.logSqlError(e, logger);
+        } finally {
+            DriverManagerConnectionPool.closeSqlParams(con, ps);
+        }
+
+        return result;
+    }
 }

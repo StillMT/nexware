@@ -2,7 +2,7 @@ package it.unisa.nexware.application.servlets;
 
 import it.unisa.nexware.application.beans.CompanyBean;
 import it.unisa.nexware.application.utils.FieldValidator;
-import it.unisa.nexware.application.utils.SessionMessage;
+import it.unisa.nexware.application.dto.SessionMessage;
 import it.unisa.nexware.storage.dao.CartDAO;
 import it.unisa.nexware.storage.dao.ProductDAO;
 import jakarta.servlet.ServletException;

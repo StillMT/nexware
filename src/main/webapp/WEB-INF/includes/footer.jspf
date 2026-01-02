@@ -1,21 +1,21 @@
 <footer>
     <div class="main-footer-wrapper">
         <div class="footer-column logo">
-            <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/GeneralData/imgs/footer-logo.png" id="footer-logo" /></a>
+            <a <%= "/".equals(request.getRequestURI()) ? "" : "href=\"/\"" %>><img src="${pageContext.request.contextPath}/GeneralData/imgs/footer-logo.png" id="footer-logo" /></a>
         </div>
 
         <div class="footer-column">
             <span class="title">Azienda</span>
-            <span>Chi siamo</span>
+            <a href="${pageContext.request.contextPath}/site-related/aboutus/"><span>Chi siamo</span></a>
             <span>Contatti</span>
-            <a href="${pageContext.request.contextPath}/site-related/workwithus"><span>Lavora con Noi</span></a>
+            <a href="${pageContext.request.contextPath}/site-related/workwithus/"><span>Lavora con Noi</span></a>
             <span>Blog</span>
             <span>Area Stampa</span>
         </div>
 
         <div class="footer-column">
             <span class="title">Supporto</span>
-            <span>Contattaci</span>
+            <a href="${pageContext.request.contextPath}/site-related/contactus/"><span>Contattaci</span></a>
             <span>FAQ</span>
             <span>Resi e Rimborsi</span>
             <span>Termini e Condizioni</span>
