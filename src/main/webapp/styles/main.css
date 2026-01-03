@@ -1,13 +1,12 @@
 header {
     margin-bottom: 0;
 }
-
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     background-color: #fdfdfd;
     color: #333;
     overflow-x: hidden;
+    margin: 0;
 }
 
 main.main-cont {
@@ -21,179 +20,142 @@ a {
 }
 
 .banner-wrapper {
-    width: 100%;
     background: radial-gradient(circle at top right, #004e92 0%, #000428 100%);
-    color: white;
-    padding: 80px 0;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 60px;
+    padding: 5em 0;
+
 }
 
-.banner-wrapper::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(79, 172, 254, 0.15) 0%, rgba(0,0,0,0) 70%);
-    border-radius: 50%;
-    z-index: 0;
-}
+
 
 .banner-content {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
+    max-width: 75em;
     margin: 0 auto;
-    padding: 0 20px;
-    position: relative;
-    z-index: 1;
+    padding: 0 1.25em;
 }
 
 .banner-info {
-    flex: 1;
-    padding-right: 50px;
+    padding-right: 3.125em;
 }
 
 .brand-label {
-    font-size: 3rem;
+    font-size: 3em;
     font-weight: 700;
-    margin-bottom: 0.5rem;
     background: linear-gradient(to right, #fff, #4facfe);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    display: inline-block;
+
 }
 
 .banner-title {
-    font-size: 2.2rem;
+    font-size: 2.2em;
     color: #fff;
-    margin-bottom: 1rem;
-    font-weight: 600;
+    margin-bottom: 0.45em;
     line-height: 1.2;
 }
 
 .banner-desc {
+    font-size: 1.1em;
     color: #b0c4de;
-    margin-bottom: 30px;
-    font-size: 1.1rem;
+    margin-bottom: 1.7em;
     max-width: 90%;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .banner-price {
-    font-size: 2.5rem;
+    font-size: 2.5em;
     font-weight: 700;
     color: #4facfe;
-    margin-bottom: 30px;
+    margin-bottom: 0.75em;
     display: block;
 }
 
 .btn-primary-home {
     background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-    color: #001f3f;
-    padding: 12px 35px;
-    border-radius: 50px;
+    padding: 0.75em 2.2em;
+    border-radius: 3.125em;
     font-weight: 700;
-    font-size: 1.05rem;
+    font-size: 1.05em;
     display: inline-block;
     transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+    box-shadow: 0 0.25em 0.9em rgba(79, 172, 254, 0.4);
 }
 
 .btn-primary-home:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6);
+    box-shadow: 0 0.375em 1.25em rgba(79, 172, 254, 0.6);
 }
 
-
 .banner-img-container {
-    flex: 1;
+    width: 28.125em;
+    flex-shrink: 0;
     display: flex;
-    justify-content: flex-end;
-    perspective: 1000px;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
+    perspective: 62.5em;
 }
 
 .banner-img-container img {
     max-width: 100%;
-    width: 450px;
+    width: 28.125em;
     height: auto;
-    border-radius:2em;
-    background: transparent !important;
-    padding: 0 !important;
-    border: none !important;
-    box-shadow: none !important;
-
-    transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
-
+    border-radius: 2em;
+    transform: perspective(62.5em) rotateX(0deg) rotateY(0deg);
     transition: transform 0.5s ease;
     will-change: transform;
 }
 
-
 .content-wrapper {
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto 80px auto;
-    padding: 0 20px;
+    max-width: 75em;
+    margin: 0 auto 5em auto;
+    padding: 0 1.25em;
 }
 
 .bg-grey {
     background-color: #f8f9fa;
-    padding: 60px 20px;
-    border-radius: 16px;
-    max-width: 1240px;
+    padding: 3.75em 1.25em;
+    border-radius: 1em;
+    max-width: 77.5em;
 }
 
 .section-header {
-    font-size: 2rem;
+    font-size: 2em;
     color: #1a1a1a;
-    margin-bottom: 50px;
-    font-weight: 700;
+    margin-bottom: 1.56em;
     text-align: center;
-    position: relative;
 }
 
 .section-header::after {
     content: '';
     display: block;
-    width: 60px;
-    height: 4px;
+    width: 3.75em;
+    height: 0.25em;
     background: #4facfe;
-    margin: 15px auto 0;
-    border-radius: 2px;
+    margin: 0.5em auto 0;
+    border-radius: 0.125em;
 }
 
 .empty-msg {
     text-align: center;
     color: #777;
-    margin: 40px 0;
+    margin: 2.5em 0;
 }
-
 
 .items-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(17.5em, 1fr));
+    gap: 1.875em;
     width: 100%;
 }
 
 .item-card {
     background: white;
-    border-radius: 12px;
-    padding: 20px;
+    border-radius: 0.75em;
+    padding: 1.25em;
     border: 1px solid #eef0f2;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -203,17 +165,15 @@ a {
 .item-card:hover {
     transform: translateY(-5px);
     border-color: #4facfe;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    box-shadow: 0 0.6em 1.5em rgba(0,0,0,0.08);
 }
 
-
 .item-img-container {
-    width: 100%;
-    height: 180px;
+    height: 11.25em;
     background-color: #f4f8fb;
     border-radius: 2em;
     overflow: hidden;
-    margin-bottom: 15px;
+    margin-bottom: 0.9em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -221,10 +181,8 @@ a {
 
 .item-img-container img {
     height: 100%;
-    padding: 20px;
+    padding: 1.25em;
     border-radius: 2em;
-    background: transparent !important;
-    margin: 0 !important;
     transition: transform 0.3s ease;
 }
 
@@ -233,11 +191,11 @@ a {
 }
 
 .item-name-link {
-    font-size: 1.15rem;
+    font-size: 1.15em;
     font-weight: 700;
     color: #333;
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 0.45em;
     text-decoration: none;
     transition: color 0.2s;
 }
@@ -250,27 +208,26 @@ a {
 .item-price {
     color: #4facfe;
     font-weight: 700;
-    font-size: 1.25rem;
+    font-size: 1.25em;
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: 1em;
 }
 
 .item-actions {
     margin-top: auto;
 }
 
-
 .btn-action.cart {
     background-color: #003366;
     color: white;
     width: 100%;
-    padding: 12px;
-    border-radius: 8px;
+    padding: 0.75em;
+    border-radius: 0.5em;
     font-weight: 600;
     border: none;
     cursor: pointer;
     transition: background 0.2s, transform 0.1s;
-    font-size: 0.95rem;
+    font-size: 0.95em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -280,70 +237,62 @@ a {
     background-color: #002244;
 }
 
-
-
 .categories-container {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 1.875em;
     flex-wrap: wrap;
 }
 
 .category-box {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     text-align: center;
-    background: #fff;
     border: 1px solid #eee;
-    border-radius: 12px;
-    padding: 20px;
-    text-decoration: none;
-    color: #333;
+    border-radius: 0.75em;
+    padding: 1.25em;
     transition: all 0.3s ease;
-    gap: 15px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    gap: 0.9em;
+    box-shadow: 0 0.25em 0.375em rgba(0,0,0,0.05);
 }
 
 .category-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    transform: translateY(-0.3em);
+    box-shadow: 0 0.6em 0.9em rgba(0,0,0,0.1);
     border-color: #0056b3;
     color: #0056b3;
 }
 
 .category-box i {
-    font-size: 2rem;
+    font-size: 2em;
     color: #4da6ff;
-    margin-bottom: 5px;
+    margin-bottom: 0.15em;
 }
 
 .category-name {
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.95em;
 }
-
 
 .info-wrapper {
     text-align: center;
-    max-width: 800px;
-    margin: 100px auto;
-    padding: 0 20px;
+    max-width: 50em;
+    margin: 6.25em auto;
+    padding: 0 1.25em;
 }
 
 .info-wrapper p {
-    font-size: 1.15rem;
+    font-size: 1.15em;
     line-height: 1.7;
     color: #666;
-    margin-bottom: 30px;
+    margin-bottom: 1.6em;
 }
 
 .btn-outline {
     border: 2px solid #4facfe;
     color: #4facfe;
-    padding: 12px 35px;
-    border-radius: 50px;
+    padding: 0.75em 2.2em;
+    border-radius: 3.125em;
     font-weight: 600;
     text-decoration: none;
     display: inline-block;
