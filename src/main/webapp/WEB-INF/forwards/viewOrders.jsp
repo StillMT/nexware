@@ -2,18 +2,19 @@
 <%@ page import="it.unisa.nexware.application.enums.OrderStatus" %>
 <%@ page import="it.unisa.nexware.application.utils.FieldValidator" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Map" %>
 <%@ page import="java.math.BigDecimal" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%
     List<OrderBean> orders = (List<OrderBean>) request.getAttribute("orders");
-    Map<Integer, BigDecimal> orderTotals = (Map<Integer, BigDecimal>) request.getAttribute("orderTotals");
     String today = (String) request.getAttribute("today");
     String startDate = (String) request.getAttribute("start-date");
     String endDate = (String) request.getAttribute("end-date");
     String statusFilter = (String) request.getAttribute("status-filter");
     String searchQuery = (String) request.getAttribute("search-query");
+
+    // Recupero eventuale messaggio di errore dalla Servlet
+    String errorParam = request.getParameter("error");
 %>
 
 <!DOCTYPE html>
@@ -21,18 +22,29 @@
 <% final String pageTitle = "I miei ordini"; %>
 <%@ include file="/WEB-INF/includes/head.jspf" %>
 
+<%-- Fix per evitare la doppia connessione causata dalla ricerca della favicon --%>
+<link rel="icon" href="data:,">
+
+<link rel="stylesheet" href="<%= request.getContextPath() %>/myNexware/orders/styles/orders.css">
+
 <body>
 <%@ include file="/WEB-INF/includes/header.jspf" %>
 
 <main class="main-cont">
     <div class="list-wrapper">
 
+
+        <% if ("notfound".equals(errorParam)) { %>
+        <div class="error">
+            <i class="fa-solid fa-circle-exclamation"></i> Ordine non trovato.
+        </div>
+        <% } %>
+
         <div class="list-wrapper-header">
             <span class="title">I miei ordini</span>
         </div>
 
-
-        <form id="filter-form" method="POST">
+        <form id="filter-form" method="GET" action="<%= request.getContextPath() %>/myNexware/orders">
             <div class="list-filter">
                 <div class="filter">
                     <span class="span-separator">Filtro</span>
@@ -63,35 +75,47 @@
             </div>
         </form>
 
-
         <div class="list">
             <div class="list-row header">
                 <span>N. Ordine</span>
                 <span>Data</span>
                 <span>Totale</span>
                 <span>Stato</span>
-                <span>Dettagli</span>
+                <span>Azioni</span>
             </div>
 
             <% if (orders != null && !orders.isEmpty()) {
                 int count = 0;
                 for (OrderBean o : orders) {
                     count++;
-                    BigDecimal total = (orderTotals != null) ? orderTotals.get(o.getId()) : null;
+                    BigDecimal totalFromDb = o.getTotalPrice();
             %>
             <div class="list-row<%= count == orders.size() ? " final" : "" %>">
-                <span><%= o.getOrderNr() %></span>
-                <span><%= FieldValidator.formatDate(o.getDate()) %></span>
-                <span><%= (total != null) ? FieldValidator.formatEuroPrice(total) : "-" %></span>
-                <span>
+                <%-- Aggiunti data-label per il CSS Responsive centrato --%>
+                <span data-label="N. Ordine"><%= o.getOrderNr() %></span>
+                <span data-label="Data"><%= FieldValidator.formatDate(o.getDate()) %></span>
+                <span data-label="Totale"><%= (totalFromDb != null) ? FieldValidator.formatEuroPrice(totalFromDb) : "€ 0,00" %></span>
+
+                <span data-label="Stato">
                     <span class="status-pill <%= o.getState().name().toLowerCase() %>">
                         <%= o.getState().getString() %>
                     </span>
                 </span>
-                <span>
-                    <a href="<%= request.getContextPath() %>/myNexware/orders/view/<%= o.getId() %>">
-                        <span class="action-button">Dettagli</span>
-                    </a>
+
+                <span class="actions-cell">
+                        <a href="<%= request.getContextPath() %>/myNexware/orders/view/<%= o.getOrderNr() %>"
+                           class="action-button view">
+                            Dettagli
+                        </a>
+
+                    <% if (o.getState() == OrderStatus.WAITING) { %>
+                    <button type="button"
+                            class="action-button confirm"
+                            data-url="<%= request.getContextPath() %>/myNexware/orders/confirmer-order"
+                            onclick="confirmOrder('<%= o.getOrderNr() %>', this)">
+                        Conferma
+                    </button>
+                    <% } %>
                 </span>
             </div>
             <% } } else { %>
@@ -100,20 +124,12 @@
             </div>
             <% } %>
         </div>
-
     </div>
 </main>
 
-<script>
-    const today = "<%= today %>";
-    const startDate = "<%= startDate %>";
-    const endDate = "<%= endDate %>";
-    const statusFilter = "<%= statusFilter %>";
-    const searchQuery = "<%= searchQuery %>";
-</script>
-
-<script src="js/FilterHandler.js"></script>
-
 <%@ include file="/WEB-INF/includes/footer.jspf" %>
+
+<script src="<%= request.getContextPath() %>/myNexware/orders/js/OrderConfirmer.js"></script>
+
 </body>
 </html>

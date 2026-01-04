@@ -1,6 +1,5 @@
 .area-personale {
     max-width: 1100px;
-    /* Ridotto il margine superiore da 4em a 1em per avvicinarlo all'header */
     margin: 1em auto 4em auto;
     padding: 0 2em;
 }
@@ -8,18 +7,17 @@
 .area-personale h1 {
     text-align: center;
     color: #2c3e50;
-    /* Ridotto anche il margine sotto il titolo per compattare il tutto */
     margin-bottom: 1.5em;
     font-size: 2.5em;
     font-weight: 700;
 }
 
-/* Riduciamo anche il margine del main-cont se la tua struttura lo prevede */
+
 .main-cont {
     padding-top: 0.5em !important;
 }
 
-/* --- RESTO DEL CSS INVARIATO --- */
+
 
 .menu {
     display: grid;

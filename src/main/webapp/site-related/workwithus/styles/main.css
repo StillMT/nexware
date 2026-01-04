@@ -2,70 +2,61 @@
     box-sizing: border-box;
 }
 
-/* 2. CONTENITORE PRINCIPALE: Affianca i due elementi */
 .workwithus {
-    max-width: 1200px; /* Larghezza massima del contenuto */
-    margin-bottom: 50px;    /* Spazio sopra/sotto (40px) e Centra il blocco (auto) */
-    padding: 20px;
-
+    max-width: 75em;
+    margin-bottom: 3.125em;
+    padding: 1.25em;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* 3. DIMENSIONAMENTO DEL TESTO (Sinistra) */
-.innovazione {
-    width: 50%; /* Diamo il 60% dello spazio al blocco testo */
+.innovazione, .image, .text-missione, .parte-cresci {
+    width: 50%;
+}
+
+.innovazione, .text-missione2, .parte-cresci {
     text-align: justify;
 }
 
-/* 4. DIMENSIONAMENTO DELL'IMMAGINE (Destra) */
-.image {
-    width: 50%; /* Diamo il 40% dello spazio al blocco immagine */
-}
-
-/* Importante: assicuriamo che l'immagine all'interno del suo div non sfori */
 .image img {
     max-width: 100%;
     height: auto;
     display: block;
-    border-radius: 10px;
+    border-radius: 0.625em;
 }
 
-.parte-innovazione
-{
+.parte-innovazione, .missione, .cresci {
     display: flex;
-    align-items: flex-start;  /* Allinea gli elementi in alto (più pulito) */
-    gap: 40px;            /* Spazio tra il testo e l'immagine */
-    margin-bottom: 100px;
-}
-
-body {
-    /* La regola "sans-serif" è una famiglia generica di font senza grazie (moderni) */
-    font-family: Arial, sans-serif;
+    align-items: flex-start;
+    gap: 2.5em;
+    margin-bottom: 6.25em;
 }
 
 .missione {
-    display: flex;
-    align-items: flex-start;  /* Allinea gli elementi in alto (più pulito) */
-    gap: 40px;            /* Spazio tra il testo e l'immagine */
-    margin-bottom: 70px;
+    margin-bottom: 4.375em;
 }
 
-.text-missione{
-    width: 50%; /* Diamo il 60% dello spazio al blocco testo */
+@media screen and (max-width: 48em) {
+    .parte-innovazione, .missione, .cresci {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5em;
+        margin-bottom: 3.5em;
+    }
 
-}
+    .innovazione, .image, .text-missione, .parte-cresci {
+        width: 100%;
+    }
 
-.parte-cresci{
-    width: 50%; /* Diamo il 60% dello spazio al blocco testo */
-    text-align: justify;
-}
+    .innovazione, .text-missione2, .parte-cresci {
+        text-align: center;
+    }
 
-.cresci{
-    display: flex;
-    align-items: flex-start;  /* Allinea gli elementi in alto (più pulito) */
-    gap: 40px;            /* Spazio tra il testo e l'immagine */
-    margin-bottom: 100px;
-}
+    .image img {
+        margin: 0 auto;
+    }
 
-.text-missione2{
-    text-align: justify;
+    .workwithus {
+        padding: 1em;
+    }
 }

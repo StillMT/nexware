@@ -1,12 +1,3 @@
-Perfetto! Per farle tornare in orizzontale, basta cambiare la direzione del flex-box da column a row e allineare gli elementi a sinistra. In questo modo l'icona e il testo saranno sulla stessa riga, come in una lista di pulsanti eleganti.
-
-Ecco il codice aggiornato:
-
-1. JSP: AreaPersonale.jsp
-La struttura rimane quasi identica, ho solo aggiunto una classe per gestire meglio lo spazio del testo.
-
-Java
-
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
