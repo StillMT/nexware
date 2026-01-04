@@ -6,10 +6,10 @@
 
     <link rel="icon" href="${pageContext.request.contextPath}/GeneralData/imgs/favicon.ico" type="image/x-icon" />
 
+    <link rel="stylesheet" href="styles/main.css" type="text/css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/GeneralData/styles/main.css" type="text/css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/GeneralData/styles/header.css" type="text/css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/GeneralData/styles/footer.css" type="text/css" />
-    <link rel="stylesheet" href="styles/main.css" type="text/css" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>

@@ -1,0 +1,111 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f9fc;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.main-cont {
+    max-width: 56.25em;
+    margin: 2em auto;
+    padding: 1em 2em;
+    background-color: #fff;
+    border-radius: 0.75em;
+    box-shadow: 0 0.375em 1.25em rgba(0,0,0,0.08);
+}
+
+.back-button-wrapper {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+.action-button {
+    display: inline-block;
+    background-color: #4a90e2;
+    color: #fff;
+    padding: 0.6em 1.2em;
+    border-radius: 0.5em;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+h2 {
+    color: #2c3e50;
+    border-bottom: 0.125em solid #eee;
+    padding-bottom: 0.5em;
+}
+
+.order-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em 2em;
+    margin: 1.5em 0;
+}
+
+.status-pill {
+    padding: 0.3em 0.8em;
+    border-radius: 0.75em;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.status-pill.waiting { background-color: #f1c40f; }
+.status-pill.delivered { background-color: #27ae60; color: #fff; }
+
+.product-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    border-radius: 0.625em;
+    background-color: #f8fafd;
+    margin-bottom: 1em;
+    align-items: center;
+    border: 0.0625em solid #e1e8f0;
+}
+
+.product-row.not-available {
+    background-color: #fcfcfc;
+    border: 0.0625em dashed #ccc;
+}
+
+.product-left {
+    display: flex;
+    align-items: center;
+    gap: 1.2em;
+}
+
+.product-left img {
+    width: 4em;
+    height: 4em;
+    border-radius: 0.5em;
+    object-fit: cover;
+    background-color: #eee;
+}
+
+.product-name {
+    font-weight: 500;
+    color: #2c3e50;
+    text-decoration: none;
+}
+
+.product-link:hover {
+    color: #4a90e2;
+}
+
+.status-warning {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+.product-price {
+    font-weight: 700;
+}
+
+.total-order {
+    text-align: right;
+    font-size: 1.3em;
+    font-weight: 700;
+    margin-top: 1.5em;
+    color: #2c3e50;
+}
