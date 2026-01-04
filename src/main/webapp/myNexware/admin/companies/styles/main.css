@@ -1,0 +1,135 @@
+.list-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1em;
+    width: 100%;
+    max-width: 98em;
+}
+
+.list-wrapper-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.title {
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    border: 1px #a9a9a9 solid;
+    font-size: 0.95em;
+    border-radius: 7px;
+    background-color: white;
+}
+
+.list-row {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr 1.2fr 0.8fr 0.8fr 1.2fr 0.8fr 0.6fr 1.2fr;
+    gap: 0.5em;
+    padding: 0.8em;
+    border-bottom: 1px #a9a9a9 solid;
+    align-items: center;
+}
+
+.list .list-row:last-child {
+    border-bottom: none;
+}
+
+.list-row:not(.header):hover {
+    background-color: #e9e9e9;
+}
+
+.list-row.header {
+    font-weight: 600;
+    background-color: #f8f9fa;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.list-row > span {
+    display: inline-flex;
+    align-items: center;
+    overflow: hidden;
+    word-break: break-word;
+    padding: 0 0.2em;
+}
+
+.list-row > span:last-child {
+    display: flex;
+    gap: 0.3em;
+    overflow: visible;
+    justify-content: flex-start;
+}
+
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.2em 0.8em;
+    color: white;
+    font-size: 0.8em;
+    border-radius: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    width: 100px;
+}
+
+.status-pill.normal { background-color: #34944a; }
+.status-pill.limited { background-color: #f6af3d; }
+.status-pill.limited_info { background-color: #3eb6ee; }
+.status-pill.banned { background-color: #da1d1d; }
+
+.action-button {
+    font-family: "Poppins", sans-serif;
+    background-color: #3eb6ee;
+    color: white;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.4em 0.8em;
+    font-size: 0.8em;
+    border-radius: 25px;
+    transition: 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.action-button:hover {
+    background-color: #2b7b9f;
+}
+
+.action-button.nor {
+    background-color: #34944a;
+    color: white;
+}
+.action-button.nor:hover { background-color: #286534; }
+
+.action-button.lim {
+    background-color: #f6af3d;
+    color: white;
+}
+.action-button.lim:hover { background-color: #d6952a; }
+
+.action-button.ban {
+    background-color: #da1d1d;
+    color: white;
+}
+.action-button.ban:hover { background-color: #b01515; }
+
+.empty-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 10em;
+    font-style: italic;
+    color: #666;
+}

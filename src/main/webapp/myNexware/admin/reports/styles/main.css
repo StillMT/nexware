@@ -1,0 +1,55 @@
+.list-wrapper, .report-list {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    max-width: 85em;
+}
+
+.title {
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+.report-list {
+    border-radius: 0.8em;
+    border: 1px solid #b5b5b5;
+    box-shadow: 0 4px 8px lightgray;
+
+    overflow: hidden;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 0.2fr 1fr 1fr 1fr 2fr;
+
+    padding: 0.5em;
+    border-bottom: 1px solid #b5b5b5;
+}
+
+.row > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.row:not(.header):hover {
+    background-color: lightgray;
+}
+
+.row.header > span {
+    font-weight: 600;
+}
+
+.report-list:last-child {
+    border-bottom: none;
+}
+
+.no-report {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-style: italic;
+    height: 10em;
+}

@@ -10,12 +10,12 @@
     align-items: center;
 }
 
-.area-personale {
+.cards-wrapper {
     width: 92%;
     max-width: 1400px;
 }
 
-.area-personale h1 {
+.cards-wrapper h1 {
     font-size: 2.5rem;
     font-weight: 300;
     color: #1a1a1a;
@@ -100,7 +100,7 @@
 }
 
 @media (max-width: 768px) {
-    .area-personale h1 {
+    .cards-wrapper h1 {
         font-size: 2rem;
     }
     .menu {

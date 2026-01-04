@@ -1,3 +1,4 @@
+<%@ page import="it.unisa.nexware.application.dto.SessionMessage" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -7,12 +8,21 @@
 
     <body>
         <%@ include file="/WEB-INF/includes/header.jspf" %>
+        <%
+            boolean adminLogin = false;
+            SessionMessage sm = (SessionMessage) s.getAttribute("adminLogin");
+
+            if (sm != null) {
+                adminLogin = sm.isValid();
+                s.removeAttribute("adminLogin");
+            }
+        %>
 
         <main class="main-cont">
             <div class="form-wrapper" id="login-form">
-                <span class="form-title">Login</span>
+                <span class="form-title"><%= adminLogin ? "Admin " : "" %>Login</span>
 
-                <form action="${pageContext.request.contextPath}/myNexware/loginEndpoint" method="post" class="login-form">
+                <form action="${pageContext.request.contextPath}/myNexware/<%= adminLogin ? "admin/login/" : "" %>loginEndpoint" method="post" class="login-form">
                     <div class="form-row">
                         <label for="username_login">Username</label>
                         <span>
@@ -29,15 +39,18 @@
                         </span>
                     </div>
 
+                    <% if (!adminLogin) { %>
                     <div class="form-row final">
                         <span class="underline">Password dimenticata?</span>
                     </div>
+                    <% } %>
 
                     <input type="submit" value="Login" />
-                    <span class="not-registered" id="login-toggler">Non hai ancora un account? Iscriviti!</span>
+                    <% if (!adminLogin) { %><span class="not-registered" id="login-toggler">Non hai ancora un account? Iscriviti!</span><% } %>
                 </form>
             </div>
 
+            <% if (!adminLogin) { %>
             <div class="form-wrapper" id="register-form" style="display: none">
                 <span class="form-title">Registrazione</span>
 
@@ -157,6 +170,7 @@
                     <span class="not-registered" id="register-toggler">Hai gi&agrave; un account? Accedi!</span>
                 </form>
             </div>
+            <% } %>
 
             <%@ include file="/WEB-INF/includes/popup.jspf" %>
 
@@ -169,8 +183,10 @@
         </script>
 
         <script src="js/PasswordVisibilityToggler.js"></script>
+        <% if (!adminLogin) { %>
         <script src="js/FormToggler.js"></script>
         <script src="js/FormValidator.js"></script>
+        <% } %>
 
         <%@ include file="/WEB-INF/includes/footer.jspf" %>
     </body>

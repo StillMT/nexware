@@ -10,7 +10,7 @@
 
             <main class="main-cont">
 
-                <div class="area-personale">
+                <div class="cards-wrapper">
                     <h1>Area Personale</h1>
 
                     <div class="menu">

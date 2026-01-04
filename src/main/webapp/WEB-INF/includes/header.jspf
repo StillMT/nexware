@@ -1,7 +1,9 @@
 <%@ page import="it.unisa.nexware.application.beans.CompanyBean" %>
+<%@ page import="it.unisa.nexware.application.beans.AdminBean" %>
 <%
     HttpSession s = request.getSession();
     CompanyBean loggedCompany = (CompanyBean) s.getAttribute("company");
+    AdminBean loggedAdmin = (AdminBean) s.getAttribute("admin");
 %>
 
 <header>
@@ -10,20 +12,28 @@
             <a <%= "/".equals(request.getRequestURI()) ? "" : "href=\"/\"" %>><img src="${pageContext.request.contextPath}/GeneralData/imgs/logo.png" id="banner-image" /></a>
 
             <div class="user-actions">
-                <a href="${pageContext.request.contextPath}/myNexware"><span class="user-action">
-                    <i class="fa-solid fa-user"></i>
+                <a href="${pageContext.request.contextPath}/myNexware">
+                    <span class="user-action">
+                        <i class="fa-solid fa-user"></i>
 
-                    <% if (loggedCompany != null) { %>
-                    <span class="welcome-user">Bentornato</span>
-                    <span class="username">
-                        <%= loggedCompany.getCompanyName() != null && !loggedCompany.getCompanyName().isBlank() ? loggedCompany.getCompanyName() : loggedCompany.getUsername() %>
+                        <% if (loggedCompany != null) { %>
+                        <span class="welcome-user">Bentornato</span>
+                        <span class="username">
+                            <%= loggedCompany.getCompanyName() != null && !loggedCompany.getCompanyName().isBlank() ? loggedCompany.getCompanyName() : loggedCompany.getUsername() %>
+                        </span>
+                        <% } else if (loggedAdmin != null) { %>
+                        <span class="welcome-user">Bentornato</span>
+                        <span class="username admin">
+                            <%= loggedAdmin.getUsername() %>
+                        </span>
+                        <% } %>
                     </span>
-                    <% } %>
-
-                </span></a>
-                <a href="${pageContext.request.contextPath}/myNexware/cart/"><span class="user-action">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                </span></a>
+                </a>
+                <% if (loggedAdmin == null) { %>
+                <a href="${pageContext.request.contextPath}/myNexware/cart/">
+                    <span class="user-action"><i class="fa-solid fa-cart-shopping"></i></span>
+                </a>
+                <% } %>
             </div>
         </div>
 

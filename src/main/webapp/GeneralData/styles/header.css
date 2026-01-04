@@ -87,6 +87,10 @@ header {
     text-shadow: 2px 4px 4px rgb(0, 0, 0);
 }
 
+.user-action .username.admin {
+    color: #57caff;
+}
+
 .header-line {
     width: 100%;
     border: 0;

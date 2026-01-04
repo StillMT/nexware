@@ -1,5 +1,6 @@
 package it.unisa.nexware.application.utils;
 
+import it.unisa.nexware.application.beans.AdminBean;
 import it.unisa.nexware.application.beans.CompanyBean;
 import it.unisa.nexware.storage.dao.CartDAO;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,7 +16,15 @@ public final class SessionSetter {
         s.setAttribute("company", cm);
     }
 
+    public static void setAdminSessionToLogin(HttpSession s, AdminBean a) {
+        s.setAttribute("admin", a);
+    }
+
     public static boolean isLogged(HttpServletRequest req) {
         return req.getSession().getAttribute("company") != null;
+    }
+
+    public static boolean isAdmin(HttpServletRequest req) {
+        return req.getSession().getAttribute("admin") != null;
     }
 }

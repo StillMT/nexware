@@ -6,6 +6,8 @@ import it.unisa.nexware.storage.utils.DriverManagerConnectionPool;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class CompanyDAO {
@@ -34,13 +36,12 @@ public class CompanyDAO {
             if (rs.next()) {
                 String pwd = rs.getString("password_hash");
 
-                if (BCrypt.checkpw(password, pwd)) {
+                if (BCrypt.checkpw(password, pwd))
                     company = new CompanyBean(rs.getInt("id"), rs.getString("username"),
                             rs.getString("email"), rs.getString("telephone"),
                             rs.getString("vat"), rs.getString("company_name"),
                             rs.getString("registered_office"),
                             AccountStatus.valueOf(rs.getString("status")));
-                }
             }
         } catch (SQLException e) {
             DriverManagerConnectionPool.logSqlError(e, logger);
@@ -178,6 +179,64 @@ public class CompanyDAO {
         } finally {
             DriverManagerConnectionPool.closeSqlParams(con, ps, null);
         }
+    }
+
+    public static List<CompanyBean> doGetAllCompanies() {
+        final String sql = "SELECT * FROM company ORDER BY id DESC";
+        List<CompanyBean> companies = new ArrayList<>();
+
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManagerConnectionPool.getConnection();
+            if (con == null)
+                return null;
+
+            ps = con.prepareStatement(sql);
+
+            rs = ps.executeQuery();
+            while (rs.next())
+                companies.add(new CompanyBean(rs.getInt("id"), rs.getString("username"),
+                        rs.getString("email"), rs.getString("telephone"), rs.getString("vat"),
+                        rs.getString("company_name"), rs.getString("registered_office"),
+                        rs.getTimestamp("singup_time").toLocalDateTime(), AccountStatus.valueOf(rs.getString("status"))));
+        } catch (SQLException e) {
+            DriverManagerConnectionPool.logSqlError(e, logger);
+        } finally {
+            DriverManagerConnectionPool.closeSqlParams(con, ps, rs);
+        }
+
+        return companies;
+    }
+
+    public static boolean doUpdateStatus(int id, AccountStatus status) {
+        final String sql = "UPDATE company SET status = ? WHERE id = ?";
+        boolean result = false;
+
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = DriverManagerConnectionPool.getConnection();
+            if (con == null)
+                return false;
+
+            ps = con.prepareStatement(sql);
+
+            ps.setString(1, status.name());
+            ps.setInt(2, id);
+
+            if (ps.executeUpdate() == 1)
+                result = true;
+        } catch (SQLException e) {
+            DriverManagerConnectionPool.logSqlError(e, logger);
+        } finally {
+            DriverManagerConnectionPool.closeSqlParams(con, ps);
+        }
+
+        return result;
     }
 }
 
