@@ -6,7 +6,7 @@
     AdminBean loggedAdmin = (AdminBean) s.getAttribute("admin");
 %>
 
-<header>
+<header class="desktop-header">
     <div class="top-bar-wrapper">
         <div class="top-bar">
             <a <%= "/".equals(request.getRequestURI()) ? "" : "href=\"/\"" %>><img src="${pageContext.request.contextPath}/GeneralData/imgs/logo.png" id="banner-image" /></a>
@@ -41,7 +41,7 @@
     </div>
 
     <div class="search-bar">
-        <i class="fa-solid fa-magnifying-glass" id="search-icon" ></i>
+        <i class="fa-solid fa-magnifying-glass search-icon" ></i>
         <form class="search-form" action="${pageContext.request.contextPath}/catalogue/">
             <input type="search" class="search-input" name="q" placeholder="Cerca software..." autocomplete="off" />
             <input type="submit" class="search-btn" value="Cerca" />
@@ -57,3 +57,31 @@
         </ul>
     </nav>
 </header>
+
+<header class="mobile-header">
+    <div class="header-top">
+        <div class="search-wrapper">
+            <i class="fa-solid fa-magnifying-glass search-icon mobile" ></i>
+            <form action="${pageContext.request.contextPath}/catalogue">
+                <input type="text" name="q" placeholder="Cerca software..." />
+            </form>
+        </div>
+
+        <button class="hamburger-btn" id="menuToggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="${pageContext.request.contextPath}/">HOME</a>
+        <a href="${pageContext.request.contextPath}/catalogue">CATALOGO</a>
+        <a href="${pageContext.request.contextPath}/site-related/aboutus">CHI SIAMO</a>
+        <a href="${pageContext.request.contextPath}/site-related/contactus">CONTATTACI</a>
+        <a href="${pageContext.request.contextPath}/myNexware">AREA UTENTE</a>
+        <a href="${pageContext.request.contextPath}/myNexware/cart/">CARRELLO</a>
+    </nav>
+</header>
+
+<script src="/GeneralData/js/MobileHeaderHandler.js"></script>
