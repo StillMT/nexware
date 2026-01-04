@@ -12,40 +12,42 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = {"/home", ""})
+@WebServlet("")
 public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-        List<ProductBean> allProducts = ProductDAO.doRetrieveAllActive(50);
+        List<ProductBean> homeProducts = ProductDAO.doGetHomeProducts();
         List<CategoryBean> allCategories = CategoryDAO.doGetCatList();
 
         List<ProductBean> featuredProducts = new ArrayList<>();
         List<ProductBean> bannerProducts = new ArrayList<>();
 
-        if (allProducts != null && !allProducts.isEmpty()) {
 
+        if (homeProducts != null && !homeProducts.isEmpty()) {
 
-            featuredProducts = allProducts.stream()
-                    .limit(3)
-                    .collect(Collectors.toList());
+            featuredProducts = homeProducts.subList(0, 3);
 
-
-            bannerProducts = allProducts.stream()
-                    .skip(4)
-                    .collect(Collectors.toList());
+            bannerProducts.add(homeProducts.get(3));
         }
+
+            else {
+                featuredProducts = homeProducts;
+                bannerProducts.add(homeProducts.get(0));
+            }
 
 
         List<CategoryBean> homeCategories = new ArrayList<>();
-        if(allCategories != null) {
-            homeCategories = allCategories.stream()
+        if(allCategories != null && !allCategories.isEmpty()) {
+            List<CategoryBean> shuffledCategories = new ArrayList<>(allCategories);
+            Collections.shuffle(shuffledCategories);
+            homeCategories = shuffledCategories.stream()
                     .limit(4)
                     .collect(Collectors.toList());
         }

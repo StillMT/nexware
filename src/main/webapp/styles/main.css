@@ -231,10 +231,14 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-decoration: none;
 }
-
 .btn-action.cart:hover {
     background-color: #002244;
+}
+
+.btn-action.cart i {
+    margin-left: 8px;
 }
 
 .categories-container {

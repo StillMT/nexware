@@ -1,26 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.*" %>
+<%@ page import="java.util.List" %>
 <%@ page import="it.unisa.nexware.application.beans.ProductBean" %>
 <%@ page import="it.unisa.nexware.application.beans.CategoryBean" %>
+<%@ page import="it.unisa.nexware.application.utils.DisplayHelper" %>
 <%@ page import="it.unisa.nexware.application.utils.FieldValidator" %>
 
 <%
-    final String pageTitle = "Home";
-
+    String pageTitle = "Home";
 
     List<ProductBean> bannerList = (List<ProductBean>) request.getAttribute("bannerProducts");
     List<ProductBean> featuredProducts = (List<ProductBean>) request.getAttribute("featuredProducts");
     List<CategoryBean> categories = (List<CategoryBean>) request.getAttribute("categories");
-
-
-    if (bannerList != null && !bannerList.isEmpty()) {
-        bannerList = new ArrayList<>(bannerList);
-        Collections.shuffle(bannerList, new Random(System.nanoTime()));
-    }
 %>
 
 <!DOCTYPE html>
-<html lang="it">
+<html>
 
 <%@ include file="/WEB-INF/includes/head.jspf" %>
 
@@ -83,10 +77,9 @@
                     </a>
                     <span class="item-price"><%= FieldValidator.formatEuroPrice(p.getPrice()) %></span>
                 </div>
-
                 <div class="item-actions">
-                    <a href="${pageContext.request.contextPath}/catalogue/view/?p=<%= p.getId() %>" class="btn-action cart" style="text-decoration:none; display:flex; align-items:center; justify-content:center;">
-                        Acquista ora <i class="fa-solid fa-chevron-right" style="margin-left: 8px;"></i>
+                    <a href="${pageContext.request.contextPath}/catalogue/view/?p=<%= p.getId() %>" class="btn-action cart">
+                        Acquista ora <i class="fa-solid fa-chevron-right"></i>
                     </a>
                 </div>
             </article>
@@ -103,18 +96,15 @@
             <%
                 if (categories != null) {
                     for (CategoryBean c : categories) {
-                        String name = c.getName();
-                        String icon = "fa-layer-group";
-                        if (name.contains("Sicurezza")) icon = "fa-shield-halved";
-                        else if (name.contains("Sviluppo")) icon = "fa-code";
-                        else if (name.contains("Design")) icon = "fa-pen-nib";
-                        else if (name.contains("Ufficio")) icon = "fa-briefcase";
             %>
             <a href="${pageContext.request.contextPath}/catalogue/?category-filter=<%= c.getId() %>" class="category-box">
-                <i class="fa-solid <%= icon %>"></i>
-                <span class="category-name"><%= name %></span>
+                <i class="fa-solid <%= DisplayHelper.getIconForCategory(c.getName()) %>"></i>
+                <span class="category-name"><%= c.getName() %></span>
             </a>
-            <% } } %>
+            <%
+                    }
+                }
+            %>
         </div>
     </div>
 

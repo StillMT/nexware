@@ -358,9 +358,12 @@ public class ProductDAO {
     }
 
 
-    public static List<ProductBean> doRetrieveAllActive(int limit) {
+    public static List<ProductBean> doGetHomeProducts() {
 
-        final String sql = "SELECT * FROM product WHERE state = 'ACTIVE' ORDER BY creation_date DESC LIMIT ?";
+        final String sql = "(SELECT * FROM product WHERE state = 'ACTIVE' ORDER BY id DESC LIMIT 3) " +
+                "UNION ALL " +
+                "(SELECT * FROM product WHERE state = 'ACTIVE' ORDER BY RAND() LIMIT 1)";
+
         List<ProductBean> products = new ArrayList<>();
 
         Connection con = null;
@@ -369,30 +372,33 @@ public class ProductDAO {
 
         try {
             con = DriverManagerConnectionPool.getConnection();
-            if (con == null) return products;
+            if (con == null)
+                return products;
 
             ps = con.prepareStatement(sql);
-            ps.setInt(1, limit);
 
             rs = ps.executeQuery();
             while (rs.next()) {
-                products.add(new ProductBean(
+
+                ProductBean product = new ProductBean(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("description"),
                         rs.getInt("id_category"),
                         rs.getInt("id_company"),
-                        it.unisa.nexware.application.enums.ProductStatus.valueOf(rs.getString("state")),
+                        ProductStatus.valueOf(rs.getString("state")),
                         rs.getBigDecimal("price"),
                         rs.getInt("stock"),
                         ""
-                ));
+                );
+                products.add(product);
             }
         } catch (SQLException e) {
             DriverManagerConnectionPool.logSqlError(e, logger);
         } finally {
             DriverManagerConnectionPool.closeSqlParams(con, ps, rs);
         }
+
         return products;
     }
 
