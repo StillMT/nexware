@@ -119,3 +119,56 @@ textarea {
     box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.25);
 }
 
+@media screen and (max-width: 992px) {
+    .contact-layout {
+        flex-direction: column;
+        gap: 2em;
+    }
+
+    .contact-container,
+    .contact-info-wrapper {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .map-container iframe {
+        height: 300px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .contact-page {
+        margin: 1em auto;
+        padding: 0 15px;
+    }
+
+    .contact-container,
+    .contact-info-wrapper {
+        padding: 1.5em;
+    }
+
+    .row-inputs {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    #name, #email, #object, #description {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .input-group {
+        width: 100%;
+    }
+
+    #contact-form input[type="submit"] {
+        width: 100%;
+        margin-top: 0.5em;
+        padding: 1em;
+    }
+
+    .page-title {
+        font-size: 1.8em;
+        margin-bottom: 0.8em;
+    }
+}
