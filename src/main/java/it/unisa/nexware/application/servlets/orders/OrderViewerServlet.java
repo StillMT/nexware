@@ -31,7 +31,6 @@ public class OrderViewerServlet extends HttpServlet {
 
         if (searchQuery == null) searchQuery = "";
 
-
         if (!FieldValidator.dateValidate(startDate) || !FieldValidator.dateValidate(endDate) ||
                 (statusFilter != null && !statusFilter.equals("ALL") && OrderStatus.fromString(statusFilter) == null)) {
             startDate = today.minusDays(90).toString();
@@ -45,9 +44,7 @@ public class OrderViewerServlet extends HttpServlet {
             return;
         }
 
-
         List<OrderBean> orders = OrderDAO.doGetOrdersByCompany(company, searchQuery, startDate, endDate, statusFilter);
-
 
         request.setAttribute("orders", orders);
         request.setAttribute("today", today.toString());
@@ -63,28 +60,25 @@ public class OrderViewerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
         String orderNr = request.getParameter("orderNr");
         String newStatusStr = request.getParameter("newStatus");
+        CompanyBean company = (CompanyBean) request.getSession().getAttribute("company");
 
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
-        if (orderNr != null && newStatusStr != null) {
+        if (orderNr != null && newStatusStr != null && company != null) {
             try {
                 OrderStatus newStatus = OrderStatus.valueOf(newStatusStr);
+                boolean success = OrderDAO.updateOrderStatus(orderNr, company.getId(), newStatus);
 
-
-                OrderDAO.updateOrderStatus(orderNr, newStatus);
-
+                response.getWriter().write("{\"result\": " + success + "}");
             } catch (IllegalArgumentException e) {
-
-                e.printStackTrace();
+                response.getWriter().write("{\"result\": false, \"error\": \"Invalid Status\"}");
             }
-
-
-            response.sendRedirect(request.getContextPath() + "/myNexware/orders/");
         } else {
-
-            doGet(request, response);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("{\"result\": false, \"error\": \"Missing parameters\"}");
         }
     }
 }

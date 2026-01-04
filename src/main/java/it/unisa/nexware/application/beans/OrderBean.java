@@ -3,9 +3,10 @@ package it.unisa.nexware.application.beans;
 import it.unisa.nexware.application.enums.OrderStatus;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderBean {
-
 
     private int id;
     private int idCompany;
@@ -14,7 +15,7 @@ public class OrderBean {
     private OrderStatus state;
     private LocalDate date;
     private String halfCardNumber;
-
+    private List<OrderedProductBean> products;
 
     public OrderBean(int id, int idCompany, String orderNr, BigDecimal totalPrice,
                      OrderStatus state, LocalDate date, String halfCardNumber) {
@@ -25,15 +26,14 @@ public class OrderBean {
         this.state = state != null ? state : OrderStatus.WAITING;
         this.date = date != null ? date : LocalDate.now();
         this.halfCardNumber = halfCardNumber != null ? halfCardNumber : "";
+        this.products = new ArrayList<>();
     }
-
 
     public OrderBean(int id, int idCompany, String orderNr,
                      OrderStatus state, LocalDate date, String halfCardNumber) {
         this(id, idCompany, orderNr, BigDecimal.ZERO, state, date, halfCardNumber);
     }
 
-    // Getter e setter
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -54,4 +54,7 @@ public class OrderBean {
 
     public String getHalfCardNumber() { return halfCardNumber; }
     public void setHalfCardNumber(String halfCardNumber) { this.halfCardNumber = halfCardNumber; }
+
+    public List<OrderedProductBean> getProducts() { return products; }
+    public void setProducts(List<OrderedProductBean> products) { this.products = products; }
 }

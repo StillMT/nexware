@@ -24,7 +24,6 @@ a {
     font-weight: 700;
 }
 
-
 .list-filter {
     display: grid;
     grid-template-columns: 1fr 0.6fr 1.4fr 0.15fr;
@@ -35,9 +34,10 @@ a {
 .filter {
     display: flex;
     padding-right: 0;
-    border: 1px #a9a9a9 solid;
-    border-radius: 8px;
+    border: 0.0625em #a9a9a9 solid;
+    border-radius: 0.5em;
     overflow: hidden;
+    background-color: white;
 }
 
 .filter input, .filter select {
@@ -47,6 +47,7 @@ a {
     font-family: "Poppins", sans-serif;
     width: 100%;
     padding: 0.3em 0.5em;
+    background-color: white;
 }
 
 .span-separator {
@@ -54,11 +55,12 @@ a {
     padding: 0.3em 0.5em;
     margin: 0;
     font-size: 0.8em;
-    border-right: 1px #a9a9a9 solid;
-    border-left: 1px #a9a9a9 solid;
+    border-right: 0.0625em #a9a9a9 solid;
+    border-left: 0.0625em #a9a9a9 solid;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #6f7376;
 }
 
 .list-filter > input[type="submit"] {
@@ -68,18 +70,17 @@ a {
     cursor: pointer;
     font-family: "Poppins", sans-serif;
     background-color: #3eb6ee;
-    border-radius: 25px;
+    border-radius: 1.5625em;
     color: white;
     transition: 0.2s ease;
 }
 
-
 .list {
     display: flex;
     flex-direction: column;
-    border: 1px #a9a9a9 solid;
+    border: 0.0625em #a9a9a9 solid;
     font-size: 0.95em;
-    border-radius: 7px;
+    border-radius: 0.4375em;
     overflow: hidden;
 }
 
@@ -88,7 +89,7 @@ a {
     width: 100%;
     align-items: center;
     padding: 0.8em 0.6em;
-    border-bottom: 1px #a9a9a9 solid;
+    border-bottom: 0.0625em #a9a9a9 solid;
     box-sizing: border-box;
 }
 
@@ -114,29 +115,27 @@ a {
     border-bottom: none;
 }
 
-
 .status-pill {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
+    padding: 0.25em 0.5em;
+    border-radius: 1.25em;
+    font-size: 0.7rem;
     font-weight: 600;
     color: #fff;
-    min-width: 110px;
+    min-width: 5.625em;
 }
 
 .status-pill.to_pay { background-color: #e74c3c; }
 .status-pill.waiting { background-color: #f39c12; }
 .status-pill.delivered { background-color: #2ecc71; }
 
-
 .actions-cell {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
+    gap: 0.3125em;
     overflow: visible !important;
 }
 
@@ -148,14 +147,13 @@ a {
     color: white;
     font-size: 0.75em;
     font-weight: 600;
-    border-radius: 25px;
+    border-radius: 1.5625em;
     transition: 0.2s ease;
     border: none;
     cursor: pointer;
-    min-width: 90px;
+    min-width: 5.625em;
     text-decoration: none;
 }
-
 
 .action-button.view {
     background-color: #3eb6ee;
@@ -164,7 +162,6 @@ a {
 .action-button.view:hover {
     background-color: #2b7b9f;
 }
-
 
 .action-button.confirm {
     background-color: #2ecc71;
@@ -181,4 +178,10 @@ a {
     width: 100%;
     height: 10em;
     font-style: italic;
+}
+
+.filter label[for="search-query"] {
+    margin-left: 0.85em;
+    display: flex;
+    align-items: center;
 }

@@ -2,9 +2,8 @@ package it.unisa.nexware.application.servlets.orders;
 
 import it.unisa.nexware.application.beans.CompanyBean;
 import it.unisa.nexware.application.beans.OrderBean;
-import it.unisa.nexware.application.beans.OrderedProductBean;
 import it.unisa.nexware.storage.dao.OrderDAO;
-import it.unisa.nexware.storage.dao.OrderedProductDAO;
+import it.unisa.nexware.storage.utils.DriverManagerConnectionPool;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,7 +12,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 @WebServlet("/myNexware/orders/view/*")
 public class OrderDetailServlet extends HttpServlet {
@@ -22,16 +22,12 @@ public class OrderDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
         String pathInfo = request.getPathInfo();
         if (pathInfo == null || pathInfo.equals("/")) {
             response.sendRedirect(request.getContextPath() + "/myNexware/orders/");
             return;
         }
-
-
         String orderNr = pathInfo.substring(1);
-
 
         CompanyBean company = (CompanyBean) request.getSession().getAttribute("company");
         if (company == null) {
@@ -39,30 +35,28 @@ public class OrderDetailServlet extends HttpServlet {
             return;
         }
 
+        Connection con = null;
+        try {
+            con = DriverManagerConnectionPool.getConnection();
 
+            OrderBean order = OrderDAO.getOrderByNumber(con, orderNr, company.getId());
 
-        OrderBean order = OrderDAO.getOrderByNumber(orderNr, company.getId());
+            if (order != null) {
 
-        if (order == null) {
+                request.setAttribute("order", order);
 
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return;
+                request.setAttribute("items", order.getProducts());
+
+                request.getRequestDispatcher("/WEB-INF/forwards/viewOrderDetails.jsp").forward(request, response);
+            } else {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } finally {
+            DriverManagerConnectionPool.closeSqlParams(con, null, null);
         }
-
-
-        List<OrderedProductBean> items = OrderedProductDAO.getByOrderId(order.getId());
-
-
-        request.setAttribute("order", order);
-        request.setAttribute("items", items);
-
-        request.getRequestDispatcher("/WEB-INF/forwards/viewOrderDetails.jsp").forward(request, response);
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
     }
 }
