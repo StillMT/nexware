@@ -1,0 +1,119 @@
+.list-wrapper, .report-list {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    max-width: 85em;
+}
+
+.title {
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+.report-list {
+    border-radius: 0.8em;
+    border: 1px solid #b5b5b5;
+    box-shadow: 0 4px 8px lightgray;
+
+    overflow: hidden;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 0.2fr 1fr 1fr 1fr 2fr;
+
+    padding: 0.5em;
+    border-bottom: 1px solid #b5b5b5;
+}
+
+.row > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.row:not(.header):hover {
+    background-color: lightgray;
+}
+
+.row.header > span {
+    font-weight: 600;
+}
+
+.report-list:last-child {
+    border-bottom: none;
+}
+
+.no-report {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-style: italic;
+    height: 10em;
+}
+
+@media (max-width: 768px) {
+    .row.header {
+        display: none;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8em;
+        padding: 1em;
+        border-bottom: 4px solid #e0e0e0;
+    }
+
+    .row:last-child {
+        border-bottom: none;
+    }
+
+    .row > span {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+        font-size: 0.95em;
+    }
+
+    .row > span:nth-of-type(1)::before {
+        content: "ID: ";
+        font-weight: 700;
+        color: #555;
+    }
+
+    .row > span:nth-of-type(2)::before {
+        content: "Azienda: ";
+        font-weight: 700;
+        color: #555;
+    }
+
+    .row > span:nth-of-type(3)::before {
+        content: "E-mail: ";
+        font-weight: 700;
+        color: #555;
+    }
+
+    .row > span:nth-of-type(4)::before {
+        content: "Oggetto: ";
+        font-weight: 700;
+        color: #555;
+    }
+
+    .row > span:nth-of-type(5) {
+        margin-top: 0.5em;
+        padding-top: 0.5em;
+        border-top: 1px solid #eee;
+        color: #333;
+    }
+
+    .row > span:nth-of-type(5)::before {
+        content: "Descrizione";
+        display: block;
+        font-weight: 700;
+        color: #555;
+        margin-bottom: 0.3em;
+    }
+}

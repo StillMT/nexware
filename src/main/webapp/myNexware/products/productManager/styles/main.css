@@ -255,3 +255,57 @@
     box-shadow: 0 0 0 3px rgba(111, 211, 231, 0.25);
     border: 2px solid #7fd8ec;
 }
+
+@media (max-width: 56.25em) {
+    .p-manager-form-inputs {
+        flex-direction: column;
+        gap: 1.5em;
+    }
+
+    .p-manager-details,
+    .p-manager-files-wrapper,
+    .p-manager-imgs,
+    .p-manager-files {
+        width: 100%;
+        box-sizing: border-box;
+        max-height: none;
+        height: auto;
+    }
+
+    .input-row.double,
+    .input-row.double.even {
+        grid-template-columns: 1fr;
+        gap: 0.8em;
+    }
+
+    .input-row textarea {
+        height: 10em;
+    }
+
+    :is(.p-manager-imgs, .p-manager-files) input[type="file"] {
+        padding: 1.5em 1em;
+        font-size: 0.9em;
+    }
+
+    .p-manager-form-controls {
+        flex-direction: column-reverse;
+        gap: 0.8em;
+        width: 100%;
+    }
+
+    .p-manager-form-controls :is(input[type="submit"], span) {
+        width: 100%;
+        padding: 0.8em;
+        font-size: 1em;
+        box-sizing: border-box;
+    }
+
+    .p-manager-form-controls input[type="submit"] {
+        order: 3;
+    }
+
+    .p-manager-form-controls .delete {
+        order: 2;
+        margin-bottom: 0.5em;
+    }
+}

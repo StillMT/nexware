@@ -4,68 +4,68 @@
             rgba(62, 182, 238, 0.40) 0%,
             rgba(62, 182, 238, 0.10) 100%
     );
-
     border: 1px solid rgba(62, 182, 238, 0.6);
-    border-radius: 3em;
+    border-radius: 2em;
     box-shadow:
             inset 0 0 20px rgba(62, 182, 238, 0.2),
             0 10px 40px -10px rgba(62, 182, 238, 0.5),
             5px 5px 10px 0 rgba(0, 0, 0, 0.3);
     color: #0b4f70;
-
     display: flex;
     flex-direction: column;
-
     padding: 2em;
-
-    width: 100%;
-    max-width: 50em;
+    width: 90%;
+    max-width: 40em;
+    margin: 2em auto;
+    box-sizing: border-box;
 }
 
 .login-form {
     align-items: center;
-}
-
-.login-form, .form-row {
     display: flex;
     flex-direction: column;
-
     width: 100%;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: 0.9em;
+    margin-bottom: 1em;
 }
 
 .form-title {
     width: 100%;
     font-weight: 700;
-    font-size: 1.2em;
-    margin-bottom: 0.7em;
-}
-
-.form-row {
-    font-size: 0.8em;
-    margin-bottom: 0.7em;
+    font-size: 1.5em;
+    margin-bottom: 1em;
+    text-align: center;
 }
 
 .form-row.final {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5em;
 }
 
 .form-row > span {
     display: inline-flex;
     align-items: center;
-    gap: 0.3em;
-
-    padding: 0.5em 0.9em;
+    gap: 0.5em;
+    padding: 0.8em 1em;
     background-color: white;
-    border-radius: 1.2em;
-
+    border-radius: 1.5em;
     border: #3eb6ee 1px solid;
-
-    font-size: 1.1em;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .form-row.final > span {
+    width: auto;
     gap: 0.2em;
     padding: 0;
     background-color: transparent;
@@ -82,6 +82,7 @@
 
 #add_info {
     width: fit-content;
+    margin-right: 0.5em;
 }
 
 .login-form input {
@@ -90,32 +91,36 @@
     border: none;
     font-family: "Poppins", sans-serif;
     width: 100%;
+    background: transparent;
+    font-size: 1em;
 }
 
 .login-form input[type="submit"] {
     cursor: pointer;
-
     font-weight: 700;
-    font-size: 1.2em;
-    padding: 0.6em;
+    font-size: 1.1em;
+    padding: 0.8em;
     background-color: #3eb6ee;
     border-radius: 3em;
     color: white;
-
-    transition: 0.1s ease;
+    transition: 0.2s ease;
+    width: 100%;
+    margin-top: 1em;
 }
 
 .login-form input[type="submit"]:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(62, 182, 238, 0.4);
 }
 
 #password_view_key {
     cursor: pointer;
+    color: #3eb6ee;
 }
 
 .underline {
     cursor: pointer;
+    font-size: 0.9em;
 }
 
 .underline:hover {
@@ -123,16 +128,14 @@
 }
 
 .not-registered {
-    margin-top: 2em;
+    margin-top: 1.5em;
     display: inline-flex;
     justify-content: center;
-
-    width: fit-content;
-
+    width: 100%;
     font-weight: 500;
-    font-size: 0.8em;
-
+    font-size: 0.9em;
     cursor: pointer;
+    text-align: center;
 }
 
 .not-registered:hover {
@@ -152,10 +155,10 @@
     border-radius: 5em;
     cursor: pointer;
     color: white;
-    padding: 0.25em 0.6em;
-    font-size: 0.8em;
-
+    padding: 0.4em 0.8em;
+    font-size: 0.75em;
     transition: 0.1s ease;
+    white-space: nowrap;
 }
 
 #validate_vat:hover {
@@ -169,21 +172,28 @@
 .form-row > .form-error {
     color: darkred;
     display: none;
+    font-size: 0.85em;
+    margin-top: 0.3em;
+    padding-left: 0.5em;
 }
 
 .form-row > .form-error::before {
-    content: "•";
+    content: "• ";
 }
 
-.form-row > .form-error::after {
-    content: ".";
-}
-
-@media (min-width: 120em) {
+@media (max-width: 768px) {
     .form-wrapper {
-        margin-left: 35em;
-        margin-right: 35em;
+        padding: 1.5em;
+        width: 95%;
+        border-radius: 1.5em;
+        margin: 1em auto;
+    }
 
-        max-width: 100%;
+    .form-title {
+        font-size: 1.3em;
+    }
+
+    .form-row > span {
+        padding: 0.6em 0.8em;
     }
 }

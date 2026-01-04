@@ -41,3 +41,28 @@
     line-height: 1.6;
     margin-bottom: 1rem;
 }
+
+@media screen and (max-width: 900px) {
+    .about-container {
+        padding: 40px 20px;
+    }
+
+    .about-row {
+        flex-direction: column;
+        gap: 30px;
+        margin-bottom: 50px;
+        text-align: center;
+    }
+
+    .about-row:nth-child(even) {
+        flex-direction: column-reverse;
+    }
+
+    .about-title {
+        font-size: 1.5rem;
+    }
+
+    .about-text p {
+        font-size: 0.95rem;
+    }
+}

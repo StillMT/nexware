@@ -1,4 +1,4 @@
-package it.unisa.nexware.application.servlets;
+package it.unisa.nexware.application.servlets.products;
 
 import it.unisa.nexware.application.beans.CompanyBean;
 import it.unisa.nexware.application.dto.OwnProductsDTO;
@@ -6,8 +6,6 @@ import it.unisa.nexware.application.enums.ProductStatus;
 import it.unisa.nexware.application.facades.OwnProductsFacade;
 import it.unisa.nexware.application.utils.FieldValidator;
 import it.unisa.nexware.application.dto.SessionMessage;
-import it.unisa.nexware.storage.dao.CategoryDAO;
-import it.unisa.nexware.storage.dao.ProductDAO;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

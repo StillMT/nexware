@@ -183,3 +183,38 @@
     background-color: #a6dcff;
     cursor: default;
 }
+
+@media (max-width: 900px) {
+    .checkout-body > .checkout-details {
+        flex-direction: column;
+    }
+
+    .side-details {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .checkout-details .payment-wrapper {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .checkout-details .checkout-summary {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 500px) {
+    .checkout-details :is(.product-list-wrapper, .payment-wrapper, .checkout-summary) {
+        padding: 1em;
+    }
+
+    .checkout-title {
+        font-size: 1.5em;
+    }
+
+    .checkout-body .payment-wrapper > .payment-row.double {
+        gap: 0.5em;
+    }
+}

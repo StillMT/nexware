@@ -1,0 +1,194 @@
+.list-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1em;
+    width: 100%;
+    max-width: 98em;
+}
+
+.list-wrapper-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.title {
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    border: 1px #a9a9a9 solid;
+    font-size: 0.95em;
+    border-radius: 7px;
+    background-color: white;
+}
+
+.list-row {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr 1.2fr 0.8fr 0.8fr 1.2fr 0.8fr 0.6fr 1.2fr;
+    gap: 0.5em;
+    padding: 0.8em;
+    border-bottom: 1px #a9a9a9 solid;
+    align-items: center;
+}
+
+.list .list-row:last-child {
+    border-bottom: none;
+}
+
+.list-row:not(.header):hover {
+    background-color: #e9e9e9;
+}
+
+.list-row.header {
+    font-weight: 600;
+    background-color: #f8f9fa;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.list-row > span {
+    display: inline-flex;
+    align-items: center;
+    overflow: hidden;
+    word-break: break-word;
+    padding: 0 0.2em;
+}
+
+.list-row > span:last-child {
+    display: flex;
+    gap: 0.3em;
+    overflow: visible;
+    justify-content: flex-start;
+}
+
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.2em 0.8em;
+    color: white;
+    font-size: 0.8em;
+    border-radius: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    width: 100px;
+}
+
+.status-pill.normal { background-color: #34944a; }
+.status-pill.limited { background-color: #f6af3d; }
+.status-pill.limited_info { background-color: #3eb6ee; }
+.status-pill.banned { background-color: #da1d1d; }
+
+.action-button {
+    font-family: "Poppins", sans-serif;
+    background-color: #3eb6ee;
+    color: white;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.4em 0.8em;
+    font-size: 0.8em;
+    border-radius: 25px;
+    transition: 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.action-button:hover {
+    background-color: #2b7b9f;
+}
+
+.action-button.nor {
+    background-color: #34944a;
+    color: white;
+}
+.action-button.nor:hover { background-color: #286534; }
+
+.action-button.lim {
+    background-color: #f6af3d;
+    color: white;
+}
+.action-button.lim:hover { background-color: #d6952a; }
+
+.action-button.ban {
+    background-color: #da1d1d;
+    color: white;
+}
+.action-button.ban:hover { background-color: #b01515; }
+
+.empty-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 10em;
+    font-style: italic;
+    color: #666;
+}
+
+@media (max-width: 1200px) {
+    .list-row.header {
+        display: none;
+    }
+
+    .list-row {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+        padding: 1.5em;
+        border-bottom: 4px solid #e0e0e0;
+    }
+
+    .list-row:last-child {
+        border-bottom: none;
+    }
+
+    .list-row > span {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        text-align: right;
+        border-bottom: 1px solid #f0f0f0;
+        padding: 0.5em 0;
+    }
+
+    .list-row > span:last-child {
+        border-bottom: none;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.8em;
+        margin-top: 1em;
+    }
+
+    .list-row > span::before {
+        font-weight: 700;
+        color: #555;
+        text-align: left;
+        margin-right: 1em;
+        flex-shrink: 0;
+    }
+
+    .list-row > span:nth-of-type(1)::before { content: "Ragione Sociale"; }
+    .list-row > span:nth-of-type(2)::before { content: "Username"; }
+    .list-row > span:nth-of-type(3)::before { content: "Email"; }
+    .list-row > span:nth-of-type(4)::before { content: "Telefono"; }
+    .list-row > span:nth-of-type(5)::before { content: "P.IVA"; }
+    .list-row > span:nth-of-type(6)::before { content: "Indirizzo"; }
+    .list-row > span:nth-of-type(7)::before { content: "Data Iscriz."; }
+    .list-row > span:nth-of-type(8)::before { content: "Stato"; }
+
+    .action-button {
+        flex: 1;
+        min-width: 80px;
+        text-align: center;
+    }
+}

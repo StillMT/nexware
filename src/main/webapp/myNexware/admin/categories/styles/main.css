@@ -1,0 +1,101 @@
+.grid-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 85em;
+    gap: 1.5em;
+}
+
+.title {
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+.add-bar {
+    display: flex;
+    gap: 1em;
+    padding: 1em;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    align-items: center;
+}
+
+.add-bar input {
+    font-family: "Poppins", sans-serif;
+
+    flex-grow: 1;
+    padding: 0.8em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.btn-primary {
+    font-family: "Poppins", sans-serif;
+
+    padding: 0.8em 1.5em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1em;
+    width: 100%;
+}
+
+.cat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0.8em 1em;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+    min-width: 0;
+}
+
+.cat > span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    margin-right: 0.5em;
+    display: block;
+    flex-grow: 1;
+}
+
+.btn-delete {
+    background: none;
+    border: none;
+    color: #dc3545;
+    font-size: 1.5em;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 5px;
+    border-radius: 4px;
+}
+
+.btn-delete:hover {
+    background-color: #ffeaea;
+}
+
+.empty-msg {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}

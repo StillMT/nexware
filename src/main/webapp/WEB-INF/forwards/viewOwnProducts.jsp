@@ -112,16 +112,16 @@
                     %>
                     <div class="list-row">
                         <span><img src="/catalogue/imgs/<%= p.getId() %>/1" /></span>
-                        <span><%= p.getName() %></span>
-                        <span><%= getCatNameById(p.getIdCategory(), cats) %></span>
-                        <span><%= FieldValidator.formatDateTime(p.getCreationDate()) %></span>
-                        <span><%= FieldValidator.formatDateTime(p.getUpdateDate()) %></span>
-                        <span>
+                        <span data-label="Nome"><%= p.getName() %></span>
+                        <span data-label="Categoria"><%= getCatNameById(p.getIdCategory(), cats) %></span>
+                        <span data-label="Creato il"><%= FieldValidator.formatDateTime(p.getCreationDate()) %></span>
+                        <span data-label="Modificato"><%= FieldValidator.formatDateTime(p.getUpdateDate()) %></span>
+                        <span data-label="Stato">
                             <span class="status-pill <%= p.getStatus().name().toLowerCase() %>"><%= p.getStatus().getString() %></span>
                         </span>
-                        <span><%= FieldValidator.formatEuroPrice(p.getPrice()) %></span>
-                        <span><%= p.getStock() %> lic.</span>
-                        <span>
+                                            <span data-label="Prezzo"><%= FieldValidator.formatEuroPrice(p.getPrice()) %></span>
+                                            <span data-label="Stock"><%= p.getStock() %> lic.</span>
+                                            <span>
                             <% if (p.getStatus() != ProductStatus.CANCELED) { %>
                                 <a href="${pageContext.request.contextPath}/catalogue/view?p=<%= p.getId() %>" target="_blank"><span class="action-button">Visualizza</span></a>
                             <% } %>

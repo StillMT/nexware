@@ -1,5 +1,5 @@
 header {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
 }
 body {
     line-height: 1.6;
@@ -231,14 +231,10 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    text-decoration: none;
-}
-.btn-action.cart:hover {
-    background-color: #002244;
 }
 
-.btn-action.cart i {
-    margin-left: 8px;
+.btn-action.cart:hover {
+    background-color: #002244;
 }
 
 .categories-container {

@@ -10,12 +10,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
-@WebServlet("/site-related/contactus/")
+@WebServlet(urlPatterns = {"/site-related/contactus/", "/myNexware/admin/reports/"})
 public class ReportsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (!request.getServletPath().equals("/site-related/contactus/")) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+
         String companyName = request.getParameter("name");
         String email = request.getParameter("email");
         String object = request.getParameter("object");
@@ -31,7 +37,13 @@ public class ReportsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("contactUsForm.jsp").forward(request, response);
+        if (request.getServletPath().equals("/site-related/contactus/")) {
+            request.getRequestDispatcher("contactUsForm.jsp").forward(request, response);
+            return;
+        }
+
+        request.setAttribute("reports", ReportDAO.doGetReports());
+        request.getRequestDispatcher("/WEB-INF/forwards/admin-only/viewReports.jsp").forward(request, response);
     }
 
     private boolean checkParams(String companyName, String email, String object, String description) {

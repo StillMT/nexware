@@ -1,4 +1,4 @@
-package it.unisa.nexware.application.servlets;
+package it.unisa.nexware.application.servlets.products;
 
 import it.unisa.nexware.application.beans.CompanyBean;
 import it.unisa.nexware.application.beans.ProductBean;

@@ -1,5 +1,6 @@
 <%@ page import="it.unisa.nexware.application.beans.ProductBean" %>
 <%@ page import="it.unisa.nexware.application.utils.FieldValidator" %>
+<%@ page import="it.unisa.nexware.application.utils.SessionSetter" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%
@@ -88,11 +89,13 @@
                             <%= p.getStock() <= 10 ? "(Ultimi pezzi)" : "" %>
                         </span>
 
+                        <% if (!SessionSetter.isAdmin(request)) { %>
                         <div class="add-to-cart-wrapper">
                             <a href="${pageContext.request.contextPath}/myNexware/cart/addProduct?p=<%= p.getId() %>">
                                 <span class="add-to-cart">Aggiungi al carrello</span>
                             </a>
                         </div>
+                        <% } %>
                     </div>
                 </div>
 

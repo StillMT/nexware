@@ -7,6 +7,12 @@ const speed = 0.08;
 function updatePosition() {
     if (!summary || !container) return;
 
+    if (window.innerWidth <= 900) {
+        summary.style.transform = "";
+        requestAnimationFrame(updatePosition);
+        return;
+    }
+
     const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
     const gap = 10 * rootFontSize;
 
