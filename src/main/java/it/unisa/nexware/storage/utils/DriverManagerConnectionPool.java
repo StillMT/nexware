@@ -13,9 +13,10 @@ public final class DriverManagerConnectionPool {
     private DriverManagerConnectionPool() {}
 
     // Attributi
-    private static final String DB_URL = "jdbc:mysql://nexware.ddns.net:3306/nexware?serverTimezone=Europe/Rome";
-    private static final String DB_USER = "nexware_admin";
-    private static final String DB_PASSWORD = "tV9!mF5rJ0$uR2qZ_^e8Gx#Bn47pKs%wEh@Y3aVd*L6zHt!";
+    private static final String DB_URL = System.getenv("DB_URL");
+    private static final String DB_USER = System.getenv("DB_USER");
+    private static final String DB_PASSWORD = System.getenv("DB_PASSWORD");
+
     private static final long MAX_IDLE_TIME = 120_000; // 2 minuti
     private static final int CHECK_PERIOD = 30;
     private static final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();

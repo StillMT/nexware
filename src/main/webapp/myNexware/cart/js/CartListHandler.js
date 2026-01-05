@@ -16,13 +16,15 @@ removeButtons.forEach(removeButton => removeButton.addEventListener('click', asy
         if (data.result === true) {
             itemParent.remove();
             updateCartState();
-        } else {
-            location.reload();
-        }
+        } else if (data.result === false)
+            showPopup(
+                "Attenzione",
+                "Errore di sincronizzazione con il database, ricarica la pagina e riprova."
+            );
     } catch (ex) {
         showPopup(
             "Attenzione",
-            "Errore durante la comunicazione con il database, riprova più tardi."
+            "Errore durante la comunicazione con il server, riprova più tardi."
         );
     }
 

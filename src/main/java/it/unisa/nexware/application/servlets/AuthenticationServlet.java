@@ -66,7 +66,7 @@ public class AuthenticationServlet extends HttpServlet {
                 }
 
                 CompanyBean company = new CompanyBean(username, email, telephone, vat, companyName,
-                        registeredOffice, additionalInfo ? AccountStatus.NORMAL : AccountStatus.LIMITED_INFO);
+                        registeredOffice, additionalInfo && vat != null ? AccountStatus.NORMAL : AccountStatus.LIMITED_INFO);
                 int cmId = CompanyDAO.doRegisterCompany(company, password);
                 if (cmId > 0) {
                     company.setId(cmId);
@@ -80,7 +80,6 @@ public class AuthenticationServlet extends HttpServlet {
 
     private boolean checkRegisterParams(String username, String password, String repPassword, String email,
                                         String telephone, String vat, String companyName, boolean additionalInfo) {
-
         if (!FieldValidator.usernameValidate(username) || !CompanyDAO.doCheckUsernameAvailability(username))
             return false;
 
@@ -96,9 +95,9 @@ public class AuthenticationServlet extends HttpServlet {
         if (!FieldValidator.phoneValidate(telephone))
             return false;
 
-        if (additionalInfo && !CompanyDAO.doCheckCompanyNameAvailability(companyName))
+        if (additionalInfo && companyName != null && !companyName.isBlank() && !CompanyDAO.doCheckCompanyNameAvailability(companyName))
             return false;
 
-        return !additionalInfo || FieldValidator.vatValidate(vat);
+        return !additionalInfo || (vat != null && !vat.isBlank() && FieldValidator.vatValidate(vat) && CompanyDAO.doCheckVATAvailability(vat));
     }
 }
