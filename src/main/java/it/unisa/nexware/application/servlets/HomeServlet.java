@@ -31,16 +31,23 @@ public class HomeServlet extends HttpServlet {
 
 
         if (homeProducts != null && !homeProducts.isEmpty()) {
+            int size = homeProducts.size();
 
-            featuredProducts = homeProducts.subList(0, 3);
-
-            bannerProducts.add(homeProducts.get(3));
-        }
-
-            else {
+            if (size >= 3) {
+                featuredProducts = homeProducts.subList(0, 3);
+            } else {
                 featuredProducts = homeProducts;
+            }
+
+
+            if (size >= 4) {
+                bannerProducts.add(homeProducts.get(3));
+            }
+
+            else if (size > 0) {
                 bannerProducts.add(homeProducts.get(0));
             }
+        }
 
 
         List<CategoryBean> homeCategories = new ArrayList<>();
