@@ -303,3 +303,79 @@ a {
     background: #4facfe;
     color: white;
 }
+
+@media (max-width: 992px) {
+    .banner-content {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 2em;
+    }
+
+    .banner-info {
+        padding-right: 0;
+        margin-bottom: 3em;
+    }
+
+    .banner-img-container {
+        width: 100%;
+        justify-content: center;
+        perspective: none;
+    }
+
+    .banner-img-container img {
+        width: 80%;
+        max-width: 350px;
+        transform: none !important;
+    }
+
+    .brand-label {
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 600px) {
+    .banner-wrapper {
+        padding: 3em 0;
+    }
+
+    .brand-label {
+        font-size: 2em;
+    }
+
+    .banner-title {
+        font-size: 1.5em;
+    }
+
+    .banner-desc {
+        font-size: 1em;
+        -webkit-line-clamp: 5;
+    }
+
+    .banner-price {
+        font-size: 2em;
+    }
+
+    .bg-grey {
+        padding: 2em 1em;
+        border-radius: 0;
+    }
+
+    .section-header {
+        font-size: 1.6em;
+    }
+
+    .items-grid {
+        gap: 1em;
+        grid-template-columns: repeat(auto-fill, minmax(14em, 1fr));
+    }
+
+    .categories-container {
+        gap: 1em;
+        flex-direction: column;
+    }
+
+    .category-box {
+        width: 100%;
+        flex: 1 1 100%;
+    }
+}
