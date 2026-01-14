@@ -32,7 +32,7 @@ public class OrderDAO {
                 return false;
             con.setAutoCommit(false);
 
-            ps = con.prepareStatement(sql,  Statement.RETURN_GENERATED_KEYS);
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             ps.setInt(1, c.getId());
             ps.setString(2, orderNr);
@@ -48,12 +48,17 @@ public class OrderDAO {
                 sql = "INSERT INTO ordered_product VALUES (NULL, ?, ?, ?)";
                 ps = con.prepareStatement(sql);
 
+                String sqlStock = "UPDATE product SET stock = stock - 1 WHERE id = ?";
+                PreparedStatement psStock = con.prepareStatement(sqlStock);
+
                 for (ProductBean p : products) {
                     ps.setInt(1, orderId);
                     ps.setInt(2, p.getId());
                     ps.setBigDecimal(3, p.getPrice());
-
                     ps.addBatch();
+
+                    psStock.setInt(1, p.getId());
+                    psStock.addBatch();
                 }
 
                 boolean batchSuccess = true;
@@ -62,6 +67,17 @@ public class OrderDAO {
                         batchSuccess = false;
                         break;
                     }
+
+                if (batchSuccess) {
+                    for (int r : psStock.executeBatch())
+                        if (r == Statement.EXECUTE_FAILED) {
+                            batchSuccess = false;
+                            break;
+                        }
+                }
+
+                psStock.close();
+
                 if (batchSuccess) {
                     con.commit();
                     result = true;

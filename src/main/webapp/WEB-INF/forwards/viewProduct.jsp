@@ -86,7 +86,7 @@
                         <span class="price"><%= FieldValidator.formatEuroPrice(p.getPrice()) %></span>
                         <span class="stock <%= p.getStock() <= 10 ? "last" : "" %>">
                             Disponibilit&agrave;: <%= p.getStock() %>
-                            <%= p.getStock() <= 10 ? "(Ultimi pezzi)" : "" %>
+                            <%= p.getStock() <= 10 ? (p.getStock() == 0 ? "(Esaurito)" : "(Ultimi pezzi)") : "" %>
                         </span>
 
                         <% if (!SessionSetter.isAdmin(request)) { %>
